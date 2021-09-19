@@ -1,0 +1,81 @@
+<div class="main-properties">
+    <div class="wrapper-menu">
+        <div class="side-bar">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a class="menu-link active" href="/">HOME</a>
+                </li>
+                <li class="menu-item item-shop">
+                    <a class="menu-link shop-link" href="#">SHOP</a>
+                    <ul class="sub-menu sub-menu-unactive">
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">SHIRTS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">T-SHIRTS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">HOODIES</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">SWEATSHIRTS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">PANTS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">SHORTS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">JACKETS</a>
+                        </li>
+                        <li class="sub-menu-item">
+                            <a class="menu-link" href="#">BEANIE</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/about-us">ABOUT</a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/returns">RETURNS</a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="/contact">CONTACT</a>
+                </li>
+                <li class="menu-item">
+                    <a class="menu-link" href="#">CART</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    const $ = document.querySelector.bind(document);
+    const $$ = document.querySelectorAll.bind(document);
+    const menu_links = $$('.menu-link');
+    const shop_link = $('.shop-link');
+    const sub_menu = $('.sub-menu');
+    // set active cho items 
+    menu_links.forEach((link, index) => {
+        link.onclick = function (e) {
+            if (link === shop_link) {
+                $('.menu-link.active').classList.remove('active');
+                this.classList.add('active');
+                if (sub_menu.classList.contains('sub-menu-unactive')) {
+                    sub_menu.classList.remove('sub-menu-unactive');
+                    sub_menu.classList.add('sub-menu-active')
+                }
+                else {
+                    sub_menu.classList.remove('sub-menu-active');
+                    sub_menu.classList.add('sub-menu-unactive');
+                }
+            }
+            else {
+                menu_links.forEach(link => link.classList.remove('active'));
+                this.classList.add('active');
+                console.log(this);
+            }
+        }
+    });
+</script>

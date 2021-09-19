@@ -1,0 +1,21 @@
+<div class="mt-4">
+    <div class="container">
+        <div class="row">
+            {{#each }}
+            <div class="col-sm-6 col-lg-4">
+                <div class="card card-item">
+                    <a href="/collections/{{this.slug}}">
+                        <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}" height="200">
+                    </a>
+                    <div class="card-body" min-height="230">
+                        <a href="/courses/{{this.slug}}">
+                            <h5 class="card-title">{{this.name}}</h5>
+                        </a>
+                        <p class="card-text" style="font-weight:700;">{{this.price}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

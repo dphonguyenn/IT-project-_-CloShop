@@ -1,0 +1,162 @@
+@import 'variable';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.app {
+
+    .avt-home-page {
+        position: fixed;
+        background-image: url(https://wallpapercave.com/wp/wp7154971.jpg);
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+
+        .brand-name a {
+            border: none;
+            color: white;
+            text-decoration: none;
+        }
+    }
+
+    .about-page,
+    .returns-page,
+    .contact-page,
+    .cart {
+        .main-page {
+            display: flex;
+            padding-top: 20px;
+            padding-right: 20px;
+
+            .main-part {
+                padding-left: 40px;
+
+                .header-page {
+                    border-bottom: 1px solid #e6e6e6;
+                }
+            }
+
+            .main-properties {
+                a {
+                    color: black;
+                }
+            }
+        }
+
+        .brand-name {
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .brand-name a {
+            border: none;
+            color: black;
+            text-decoration: none;
+        }
+
+
+    }
+}
+
+.brand-name {
+    line-height: 56px;
+    font-size: 48px;
+    font-style: italic;
+    font-weight: 800;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 8px 16px;
+    margin-bottom: 0px;
+}
+
+
+// main-properties
+.main-properties {
+    padding-left: 16px;
+    width: 100px;
+
+    a {
+        color: white;
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        // transition: 200ms ease-in-out;
+    }
+
+    a:hover {
+        color: cyan;
+        border-bottom-color: white;
+        // transform: translate(0, 0);
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .wrapper-menu {
+        color: white;
+
+        .side-bar {
+
+
+            .menu {
+                .menu-item {
+                    .menu-link {
+                        opacity: 0.7;
+                    }
+
+                    .menu-link.active {
+                        font-weight: 700;
+                        opacity: 1;
+                    }
+                }
+
+                .menu-item.item-shop {
+
+                    .menu-link {
+                        opacity: 0.7;
+                    }
+
+                    .menu-link.active {
+                        font-weight: 700;
+                        opacity: 1;
+                    }
+
+                    .sub-menu {
+                        margin-top: 12px;
+                        margin-bottom: 12px;
+
+                        .sub-menu-item {
+                            .sub-menu-link {
+                                opacity: 0.7;
+                            }
+
+                            .sub-menu-link.active {
+                                font-weight: 700;
+                                opacity: 1;
+                            }
+                        }
+
+
+
+                    }
+
+                    .sub-menu.sub-menu-active {
+                        display: block;
+                    }
+
+                    .sub-menu.sub-menu-unactive {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

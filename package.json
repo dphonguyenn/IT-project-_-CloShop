@@ -1,0 +1,48 @@
+{
+  "name": "it-project_closhop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "beauty": "lint-staged",
+    "start": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
+    "watch": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\node-sass --watch src/resources/scss/ --output src/Public/css/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dphonguyenn/IT-project-_-CloShop.git"
+  },
+  "keywords": [
+    "IT",
+    "project",
+    "build",
+    "web",
+    "node",
+    "js",
+    "express"
+  ],
+  "author": "phong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dphonguyenn/IT-project-_-CloShop/issues"
+  },
+  "homepage": "https://github.com/dphonguyenn/IT-project-_-CloShop#readme",
+  "lint-staged": {
+    "src/**/*.{js,json,scss}": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\prettier --single-quote --trailing-comma all --tab-width 4 --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.3",
+    "mongoose": "^6.0.5",
+    "mongoose-slug-generator": "^1.0.4"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}
