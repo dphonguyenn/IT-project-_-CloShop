@@ -6,7 +6,7 @@ class CollectionsController {
         // ? req.params.slug = get dia chi /collections/:slug
         Collection.findOne({ slug: req.params.slug })
             .then(collections => {
-                res.render(`collection/show_${slug}`, { collection: mongooseToObject(collections) });
+                res.render(`collections/show_${req.params.slug}`, { collection: mongooseToObject(collections) });
             })
             .catch(next);
     }

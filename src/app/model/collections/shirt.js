@@ -1,19 +1,24 @@
 // noi tao database
 const mongoose = require('mongoose');
-// tu tao field [slug]
-var slug = require('mongoose-slug-generator');
-mongoose.plugin(slug);
-// tao ra collection chua co trong database
+// lay database tu model
 const Schema = mongoose.Schema;
-const Course = new Schema({
+const Shirt = new Schema({
     name: { type: String, required: true },
-    description: { type: String },
-    image: { type: String },
-    slug: { type: String, slug: 'name', unique: true },
-    videoID: { type:String, required:true },
+    fit_type: { type: String },
+    img1: { type: String },
+    img2: { type: String },
+    img3: { type: String },
+    img4: { type: String },
+    img5: { type: String },
+    length: { type: String },
+    material: { type: String },
+    occasion: { type: String },
+    season: { type: String },
+    size: { type: String },
+    slug: { type: String },
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('course', Course);
+module.exports = mongoose.model('shirt', Shirt);
 // ?                         (_collection,_new_schema)
