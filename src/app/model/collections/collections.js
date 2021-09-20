@@ -2,8 +2,9 @@
 const mongoose = require('mongoose');
 // lay database tu model
 const Schema = mongoose.Schema;
-const Pant = new Schema({
+const Collection = new Schema({
     name: { type: String, required: true },
+    price: { type: Number},
     fit_type: { type: String },
     img1: { type: String },
     img2: { type: String },
@@ -16,9 +17,10 @@ const Pant = new Schema({
     season: { type: String },
     size: { type: String },
     slug: { type: String },
+    type: { type: String },
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('pant', Pant);
+module.exports = mongoose.model('collection', Collection);
 // ?                         (_collection,_new_schema)

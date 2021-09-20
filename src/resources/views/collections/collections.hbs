@@ -1,0 +1,22 @@
+<div class="collection-page">
+    {{>header}}
+    <div class="main-page">
+        {{>mainproperties}}
+        <div class="main-part">
+            <h2 class="header-page" style="text-transform: uppercase;">
+                {{#collections}}
+                {{type}}
+                {{/collections}}
+            </h2>
+            {{#each collections}}
+            <div class="cart-product">
+                <a href="#" class="product-img col">
+                    <img src="{{this.img1}}" alt="{{this.name}}" style="width:400px;height:400px">
+                </a>
+                <p class="product-name">"{{this.name}}"</p>
+                <p class="product-price" style="font-weight: 700;">{{this.price}}đ</p>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>

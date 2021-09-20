@@ -6,8 +6,9 @@
     box-sizing: border-box;
 }
 
-.app {
+.col {}
 
+.app {
     .avt-home-page {
         position: fixed;
         background-image: url(https://wallpapercave.com/wp/wp7154971.jpg);
@@ -27,6 +28,7 @@
         }
     }
 
+    .collection-page,
     .about-page,
     .returns-page,
     .contact-page,
@@ -60,7 +62,6 @@
             color: black;
             text-decoration: none;
         }
-
 
     }
 }
