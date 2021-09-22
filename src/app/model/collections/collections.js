@@ -18,6 +18,7 @@ const Collection = new Schema({
     size: { type: String },
     slug: { type: String },
     type: { type: String },
+    id_product:{type: String},
 }, {
     timestamps: true
 });

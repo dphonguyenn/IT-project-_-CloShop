@@ -6,8 +6,10 @@
     box-sizing: border-box;
 }
 
-.col {}
+// CSS properties
 
+
+// CSS for pages
 .app {
     .avt-home-page {
         position: fixed;
@@ -39,6 +41,7 @@
             padding-right: 20px;
 
             .main-part {
+                width: 90%;
                 padding-left: 40px;
 
                 .header-page {
@@ -64,6 +67,34 @@
         }
 
     }
+
+    .collection-page {
+        .part-cards {
+            padding-top: 20px;
+
+            .card-product {
+
+
+                .product-img img {
+                    width: 100%;
+                }
+
+                .product-name {
+                    color: black;
+                    text-decoration: none;
+                }
+
+                .product-name p {
+                    margin-top: 10px;
+                    margin-bottom: 0px;
+                }
+
+                .product-price {
+                    font-weight: 700;
+                }
+            }
+        }
+    }
 }
 
 .brand-name {
@@ -79,7 +110,7 @@
 }
 
 
-// main-properties
+// main-properties of pages
 .main-properties {
     padding-left: 16px;
     width: 100px;
@@ -160,4 +191,98 @@
             }
         }
     }
+}
+
+// CSS for register 
+.main__register {
+    background: #f1f1f1;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    min-height: 100px;
+    width: 360px;
+    padding: 32px 24px;
+    background-color: white;
+    text-align: center;
+    border-radius: 2px;
+    margin: 24px;
+    align-self: center;
+    box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+}
+
+.form-1 {}
+
+.form__heading {
+    margin-bottom: 16px;
+    font-size: 24px;
+}
+
+.form__subheading {
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.form__group {
+    display: flex;
+    font-size: 16px;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.form__group__label {
+    align-self: flex-start;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.form__group__input {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form__group__input:hover {
+    border: 1.5px solid rgb(24, 146, 240);
+}
+
+.form__group.invalid .form__group__input {
+    border-color: #f33a58;
+}
+
+.form__group.invalid .form__group__message {
+    color: #f33a58;
+}
+
+.form__group__message {}
+
+.form__btn {
+    width: 100%;
+    height: 36px;
+    margin-top: 20px;
+    background-color: rgb(36, 162, 240);
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+}
+
+.form__btn:hover {
+    cursor: pointer;
+    background-color: rgb(152, 210, 247);
+}
+
+.form__group__message {
+    text-align: left;
+    font-size: 12px;
+    color: red;
+}
+
+.message_default {
+    text-align: left;
+    font-size: 12px;
 }
