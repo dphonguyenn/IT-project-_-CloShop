@@ -65,9 +65,10 @@
             if (link === shop_link) {
                 $('.menu-link.active').classList.remove('active');
                 this.classList.add('active');
+                e.preventDefault();
                 if (sub_menu.classList.contains('sub-menu-unactive')) {
                     sub_menu.classList.remove('sub-menu-unactive');
-                    sub_menu.classList.add('sub-menu-active')
+                    sub_menu.classList.add('sub-menu-active');
                 }
                 else {
                     sub_menu.classList.remove('sub-menu-active');
@@ -81,4 +82,5 @@
             }
         }
     });
+    const
 </script>

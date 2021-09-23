@@ -1,13 +1,5 @@
 var express = require('express');
 const router = express.Router();
 const CollectionsController = require('../app/controllers/CollectionsController');
-// router.get('/shirt', CollectionsController.show);
-// router.get('/tshirt', CollectionsController.show);
-// router.get('/hoodies', CollectionsController.show);
-// router.get('/sweatshirt', CollectionsController.show);
-// router.get('/pant', CollectionsController.show);
-// router.get('/short', CollectionsController.show);
-// router.get('/jacket', CollectionsController.show);
-// router.get('/beanie', CollectionsController.show);
 router.get('/:slug',CollectionsController.show);
 module.exports = router;
