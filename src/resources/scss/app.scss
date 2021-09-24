@@ -30,6 +30,7 @@
         }
     }
 
+    .product-page,
     .collection-page,
     .about-page,
     .returns-page,
@@ -138,7 +139,7 @@
     }
 
     a:hover {
-        color: cyan;
+        color: orange;
         // border-bottom-color: white;
         // transform: translate(0, 0);
     }

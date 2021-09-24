@@ -12,7 +12,7 @@
                     <div class="part-cards">
                         <div class="card-product">
                             <a href="/products/{{this.id_product}}" class="product-img">
-                                <img src="{{this.img1}}" alt="{{this.name}}">
+                                <img src="{{this.img1}}" alt="{{this.name}}" class="img1-prd" style="height:500px;">
                             </a>
                             <a href="/products/{{this.id_product}}" class="product-name">
                                 <p>"{{this.name}}"</p>
@@ -20,9 +20,19 @@
                             <p class="product-price">{{this.price}}đ</p>
                         </div>
                     </div>
+                    <img src="{{this.img2}}" alt="{{this.name}}" class="img2-prd" style="display:none;">
                 </div>
                 {{/each}}
             </div>
         </div>
     </div>
 </div>
+<script>
+    //const img1_product = querySelector('.img1-prd');
+    //const img2_product = querySelector('.img2-prd');
+    //img1_product.addEventListener('mousemove', function (e) {
+        // img1.src = img2_products.src;
+       //  console.log(img1);
+       //  console.log(img2_products);
+    //});
+</script>

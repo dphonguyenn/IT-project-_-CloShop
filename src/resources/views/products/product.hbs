@@ -1,4 +1,4 @@
-<div class="about-page">
+<div class="product-page">
     {{>header}}
     <div class="main-page">
         {{>mainproperties}}
@@ -10,26 +10,26 @@
                             <div class="row">
                                 <div class="col-sm-5 col-lg-3">
                                     <div class="part-sub-img">
-                                        <a href="#" class="product-sub-img">
-                                            <img src="{{collection.img1}}" alt="{{colelction.name}}">
+                                        <a href="#" class="product-sub-img img1">
+                                            <img src="{{collection.img1}}" alt="{{colelction.name}}" class="sub-img">
                                         </a>
-                                        <a href="#" class="product-sub-img">
-                                            <img src="{{collection.img2}}" alt="{{colelction.name}}">
+                                        <a href="#" class="product-sub-img img2">
+                                            <img src="{{collection.img2}}" alt="{{colelction.name}}" class="sub-img">
                                         </a>
-                                        <a href="#" class="product-sub-img">
-                                            <img src="{{collection.img3}}" alt="{{colelction.name}}">
+                                        <a href="#" class="product-sub-img img3">
+                                            <img src="{{collection.img3}}" alt="{{colelction.name}}" class="sub-img">
                                         </a>
-                                        <a href="#" class="product-sub-img">
-                                            <img src="{{collection.img4}}" alt="{{colelction.name}}">
+                                        <a href="#" class="product-sub-img img4">
+                                            <img src="{{collection.img4}}" alt="{{colelction.name}}" class="sub-img">
                                         </a>
-                                        <a href="#" class="product-sub-img">
-                                            <img src="{{collection.img5}}" alt="{{colelction.name}}">
+                                        <a href="#" class="product-sub-img img5">
+                                            <img src="{{collection.img5}}" alt="{{colelction.name}}" class="sub-img">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-sm-7 col-lg-9">
                                     <a href="#" class="product-main-img">
-                                        <img src="{{collection.img1}}" alt="{{colelction.name}}">
+                                        <img src="{{collection.img1}}" alt="{{colelction.name}}" class="main-img">
                                     </a>
                                 </div>
                             </div>
@@ -85,3 +85,17 @@
 <div class="footer">
 
 </div>
+<script>
+    // const img1 = document.querySelector('.img1');
+    // const img2 = document.querySelector('.img2');
+    const sub_imgs = document.querySelectorAll('.sub-img');
+    const main_img = document.querySelector('.main-img');
+    sub_imgs.forEach(function (img) {
+        img.addEventListener('click', function (e) {
+            main_img.src = img.src;
+        });
+        img.addEventListener('mousemove', function (e) {
+            main_img.src = img.src;
+        })
+    })
+</script>
