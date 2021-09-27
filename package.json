@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "beauty": "lint-staged",
-    "start": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
+    "start": "node index.js",
+    "dev":"C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
     "watch": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\node-sass --watch src/resources/scss/ --output src/Public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
