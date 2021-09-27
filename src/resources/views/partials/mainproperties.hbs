@@ -46,13 +46,20 @@
                 <li class="menu-item">
                     <a class="menu-link" href="/cart">CART</a>
                 </li>
-                <li class="menu-item">
-                    <a class="menu-link" href="#">LOGIN</a>
+                <li class="menu-item" id="login">
+                    <a  class="menu-link" href="#">LOGIN</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<div class="login">
+    {{>login}}
+</div>
+
+</div>
+
+{{!-- For MENU --}}
 <script>
     const $ = document.querySelector.bind(document);
     const $$ = document.querySelectorAll.bind(document);
@@ -78,9 +85,7 @@
             else {
                 menu_links.forEach(link => link.classList.remove('active'));
                 this.classList.add('active');
-                console.log(this);
             }
         }
     });
-
 </script>

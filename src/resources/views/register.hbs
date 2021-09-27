@@ -1,41 +1,50 @@
 <!-- Form Html -->
-<div class="main__register">
-    <form action="" method="POST" class="form" id="register_form">
-        <h3 class="form__heading">Thành viên đăng ký</h3>
-        <p class="form__subheading">Hơn cả một đội bóng, chúng tôi ở bên bạn.</p>
-        <div class="spacer"></div>
-        <div class="form__group">
-            <label for="fullname" class="form__group__label">Tên đầy đủ</label>
-            <input id="fullname" name="fullname" rules="required" type="text" class="form__group__input"
-                placeholder="VD: Duy Phong">
-            <span class="form__group__message"></span>
-        </div>
+<div class="register-page">
+    {{>header}}
+    <div class="main-page">
+        {{>mainproperties}}
+        <div class="main-part">
+            <div class="main__register">
+                <form action="" method="POST" class="form" id="register_form">
+                    <h3 class="form__heading">ĐĂNG KÝ KHÁCH HÀNG</h3>
+                    <p class="form__subheading">People will stare, make it worth their while.</p>
+                    <div class="spacer"></div>
+                    <div class="form__group">
+                        <label for="fullname" class="form__group__label">Tên đầy đủ</label>
+                        <input id="fullname" name="fullname" rules="required" type="text" class="form__group__input"
+                            placeholder="VD: Duy Phong">
+                        <span class="form__group__message"></span>
+                    </div>
 
-        <div class="form__group">
-            <label for="email" class="form__group__label">Email</label>
-            <input id="email" name="email" rules="required|email" type="email" class="form__group__input"
-                placeholder="VD: phchmessibar326@gmail.com">
-            <span class="form__group__message"></span>
-        </div>
+                    <div class="form__group">
+                        <label for="email" class="form__group__label">Email</label>
+                        <input id="email" name="email" rules="required|email" type="email" class="form__group__input"
+                            placeholder="VD: phchmessibar326@gmail.com">
+                        <span class="form__group__message"></span>
+                    </div>
 
-        <div class="form__group">
-            <label for="pass" class="form__group__label">Nhập mật khẩu</label>
-            <input id="pass" name="pass" rules="required|strongPass" type="password" class="form__group__input"
-                placeholder="Nhập mật khẩu">
-            <span class="message_default">Mật khẩu phải có chứa nhất bảy kí tự,một chữ số và một ký tự đặc biệt!</span>
-            <span class="form__group__message"></span>
-        </div>
+                    <div class="form__group">
+                        <label for="pass" class="form__group__label">Nhập mật khẩu</label>
+                        <input id="pass" name="pass" rules="required|strongPass" type="password" class="form__group__input"
+                            placeholder="Nhập mật khẩu">
+                        <span class="message_default">Mật khẩu phải có chứa nhất bảy kí tự,một chữ số và một ký tự đặc biệt!</span>
+                        <span class="form__group__message"></span>
+                    </div>
 
-        <div class="form__group">
-            <label for="repass" class="form__group__label">Nhập lại mật khẩu</label>
-            <input id="repass" name="repass" rules="required|repass" type="password" class="form__group__input"
-                placeholder="Nhập lại mật khẩu">
-            <span class="form__group__message"></span>
-        </div>
+                    <div class="form__group">
+                        <label for="repass" class="form__group__label">Nhập lại mật khẩu</label>
+                        <input id="repass" name="repass" rules="required|repass" type="password" class="form__group__input"
+                            placeholder="Nhập lại mật khẩu">
+                        <span class="form__group__message"></span>
+                    </div>
 
-        <button class="form__btn">Đăng ký</button>
-    </form>
+                    <button class="form__btn">Đăng ký</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+{{>footer}}
 <script src="./Validator_solution_2.js"></script>
 <!-- Validator -->
 <script>
