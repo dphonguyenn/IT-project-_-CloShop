@@ -42,9 +42,7 @@
     "express-handlebars": "^5.3.3",
     "js-image-zoom": "^0.7.0",
     "mongoose": "^6.0.5",
-    "mongoose-slug-generator": "^1.0.4"
-  },
-  "devDependencies": {
+    "mongoose-slug-generator": "^1.0.4",
     "morgan": "^1.10.0"
   }
 }
