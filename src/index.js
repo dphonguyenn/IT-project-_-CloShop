@@ -7,6 +7,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const route = require('./routes');
 const db = require('./config/db');
+// chuyen doi method
+const methodOverride = require('method-override')
 
 
 // * Connect db
@@ -23,6 +25,9 @@ app.use(
 ); 
 app.use(express.json());
 
+// * use methodOverride
+app.use(methodOverride('_method'));
+
 // * HTTP logger
 // app.use(morgan('combined'))
 
@@ -30,7 +35,11 @@ app.use(express.json());
 app.engine(
     'hbs',
 handlebars({
-        extname: '.hbs',
+    extname: '.hbs',
+    helpers: {
+        // cau hinh cac ham cho handlebars
+        sum:(a,b)=>a+b,
+        }
     }),
 );
 app.set('view engine', 'hbs');

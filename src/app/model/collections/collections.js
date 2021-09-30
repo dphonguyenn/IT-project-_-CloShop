@@ -2,6 +2,12 @@
 const mongoose = require('mongoose');
 // lay database tu model
 const Schema = mongoose.Schema;
+// Create automatic slug
+var slug = require('mongoose-slug-generator');
+mongoose.plugin(slug);
+
+const mongooseDelete = require('mongoose-delete');
+
 const Collection = new Schema({
     name: { type: String, required: true },
     price: { type: Number},
@@ -16,9 +22,10 @@ const Collection = new Schema({
     occasion: { type: String },
     season: { type: String },
     size: { type: String },
-    slug: { type: String },
+    slug: { type: String,slug:'type'},
     type: { type: String },
-    id_product:{type: String},
+    id_product: { type: String, slug: 'type', unique: true },
+    color:{type:String}
 }, {
     timestamps: true
 });

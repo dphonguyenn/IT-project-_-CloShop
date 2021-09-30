@@ -1,0 +1,126 @@
+<div class="me-page">
+    {{>me-header }}
+    <div class="me-page-main">
+        <h3>My products</h3>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Color</th>
+                    <th scope="col">Size</th>
+                    {{!-- <th scope="col">Quantity</th> --}}
+                    <th scope="col">Created Time</th>
+                    <th scope="col">Updated Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    {{!-- sum(a,b) -> sum(@index,1) (@index: chi muc array trong hbs--}}
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.type}}</td>
+                    <td>{{this.color}}</td>
+                    <td>{{this.size}}</td>
+                    <td>{{this.createdAt}}</td>
+                    <td>{{this.updatedAt}}</td>
+                    <td>
+                        <a href="/me/stored/{{this._id}}/edit" class="btn btn-link">Update</a>
+                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Delete</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{!-- 
+
+Cac buoc thuc hien method [DELETE] (use method-override of Express to exchange [POST] -> [DELETE] ) -> npm install method-override
+B1: o list product tai moi row chua product , tao 1 the a hoac button de thuc hien cong viec xoa
+B2: Tao 1 modal confirm de xac nhan viec xoa product
+B3: Quay lai the a/button vua tao them vao cac thuoc tinh: data-toggle="modal" data-target="#delete-product-modal" de nhan vao the a/button modal se hien len
+B4: Tai modal confirm them vao id="delete-product-modal" de match voi the a/button
+B5: Sau khi thuc hien xog match modal vs a/button, ta se tien hanh get id cua product ma ta nhap vao a/button cho modal
+B6: Them vao a/button attribute data-id="{{this._id}}" (data-__name)
+B7: Tao the script, tu docs cua bootstrap -> add: 
+        $('#delete-product-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            productId = button.data('id') 
+        });
+B8: Ki hieu $ cua jquery chua duoc load vao file nen xay ra loi, bo code tren vao de chac chan code duoc chay sau khi $ da duoc load
+        document.addEventListener("DOMContentLoaded", function(e) { 
+            $('#delete-product-modal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) 
+                productId = button.data('id') 
+            });
+        });
+B9: Tao 1 form hidden de gui request len server 
+B10: Lang nghe su kien click tren button DELETE cua modal, add action la path duoc config cho method [DELETE] o route /me,  path   =   path_config + ?_method=DELETE
+                                                                                                                 (/me/products/:id)  '/me/products/' + productId + '?_method=DELETE' 
+ 
+B11: add submit for form -> delete-form.submit()
+B0: Chu trinh send request sau khi submit -> qua route /me config o route/index.js -> qua route /me/products/:id (method [DELETE])
+    -> Lot vao MeController.function ung voi method va tien hanh xoa -> 
+        collections.deleteOne({ _id: req.params.id }, req.body)
+            .then(() => res.redirect('back'))// redirect(back): quay tro lai trang trc do
+            .catch(next)
+ --}}
+
+ {{!-- 
+ 
+ custom method [DELETE] -> soft [DELETE] (use ' npm install mongoose-delete ' of mongoose)
+B1: Use
+
+  --}}
+
+{{!-- confirm delete  --}}
+<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- hidden delete form --}}
+<form class="form-delete" method="POST" name="delete-product-form"></form>
+
+<script>
+    var productId;
+    var deleteForm = document.forms['delete-product-form']
+    var btnDelete = document.getElementById('btn-delete-product-modal');
+    // bellow function to sure character ($) from jquery is loaded 
+    document.addEventListener("DOMContentLoaded", function(e) {
+        // get id product for delete modal when click on delete(href)
+        $('#delete-product-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            productId = button.data('id') 
+        });
+    });
+
+    // event click on btn-delete to add action for delete form to send method [DELETE] for modal
+    // and submit form
+    btnDelete.onclick = function (event) {
+        deleteForm.action = '/me/products/' + productId + '?_method=DELETE';
+        deleteForm.submit();
+    }   
+</script>

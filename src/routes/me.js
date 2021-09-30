@@ -1,0 +1,11 @@
+var express = require('express');
+const router = express.Router();
+const MeController = require('../app/controllers/MeController.js');
+router.get('/create-product', MeController.showCreatePage);
+router.get('/stored/products', MeController.showProducts);
+router.get('/stored/:id/edit', MeController.showEditPage);
+router.put('/products/:id', MeController.updateProduct);
+router.delete('/products/:id', MeController.deleteProduct);
+router.post('/stored',MeController.stored);
+// router.post('/create-product',MeController.store);
+module.exports = router;

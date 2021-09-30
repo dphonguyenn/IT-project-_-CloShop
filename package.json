@@ -6,7 +6,7 @@
   "scripts": {
     "beauty": "lint-staged",
     "start": "node src/index.js",
-    "dev":"C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
+    "dev": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
     "watch": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\node-sass --watch src/resources/scss/ --output src/Public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -41,7 +41,9 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "js-image-zoom": "^0.7.0",
+    "method-override": "^3.0.0",
     "mongoose": "^6.0.5",
+    "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4",
     "morgan": "^1.10.0"
   }
