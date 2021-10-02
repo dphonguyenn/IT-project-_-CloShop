@@ -1,16 +1,34 @@
-<div class="me-page">
+<form name="container-form" class="me-page" method="POST" action="/me/products/handle-actions-form">
     {{>me-header }}
     <div class="me-page-main">
-        <h3>My products</h3>
+        <div>
+            <h3>Your products ({{countProduct}})</h3>
+            <a href="/me/stored/trash/products">Recycle Bin <i class="fas fa-trash-alt"></i>({{countDelete}})</a>
+            <div class="mt-4 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
+                    <label class="form-check-label" for="checkbox-all">
+                        Select All
+                    </label>
+                </div>
+                <div class="form-group form-control-sm checkbox-selectAll-options" style="margin-bottom:0;">    
+                    <select class="form-control" name="action">
+                    {{!-- <option value="">Actions</option> --}}
+                    <option value="delete">Delete</option>
+                    </select>
+                </div>
+                <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Apply</button>
+            </div>
+        </div>
         <table class="table mt-4">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col">STT</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Type</th>
-                    <th scope="col">Color</th>
-                    <th scope="col">Size</th>
+                    <th scope="col">Color</th>                    
                     {{!-- <th scope="col">Quantity</th> --}}
                     <th scope="col">Created Time</th>
                     <th scope="col">Updated Time</th>
@@ -21,12 +39,16 @@
                 {{#each products}}
                 <tr>
                     {{!-- sum(a,b) -> sum(@index,1) (@index: chi muc array trong hbs--}}
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" id="checkbox" type="checkbox" name="productId[]" value="{{this._id}}" >
+                        </div>
+                    </td>
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.price}}</td>
                     <td>{{this.type}}</td>
                     <td>{{this.color}}</td>
-                    <td>{{this.size}}</td>
                     <td>{{this.createdAt}}</td>
                     <td>{{this.updatedAt}}</td>
                     <td>
@@ -34,11 +56,19 @@
                         <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Delete</a>
                     </td>
                 </tr>
+                {{!-- Khi khong co du lieu --}}
+                {{else}} 
+                <tr>
+                    <td colspan="9">
+                        You haven't posted product yet. 
+                        <a href="/me/create-product">Create product?</a>
+                    </td>
+                </tr>
                 {{/each}}
             </tbody>
         </table>
     </div>
-</div>
+</form>
 
 {{!-- 
 
@@ -76,7 +106,12 @@ B0: Chu trinh send request sau khi submit -> qua route /me config o route/index.
  {{!-- 
  
  custom method [DELETE] -> soft [DELETE] (use ' npm install mongoose-delete ' of mongoose)
-B1: Use
+B1: Add plugin of mongoose-delete on model collections.js
+B2: At MeController.js -> change default function 'deleteOne' of mongoose to function 'delete' of mongoose-delete lib
+_ Luc nay khi tien hanh xoa trong db se them field _ deleted: true _ o product ma ta xoa nhung khong cap nhap tren List Products WEB 
+B3: Add options { overrideMethods: 'all' } o plugin vua tao de ghi de len ban ghi cu 
+_ List Product WEB se duoc cap nhap khi xoa nhu default _ deleteOne 
+B4: Add options { deletedAt : true } vao plugin _ de cap nhap them field deletedAt vao db de biet thoi gian ta thuc hien xoa
 
   --}}
 
@@ -105,22 +140,56 @@ B1: Use
 <form class="form-delete" method="POST" name="delete-product-form"></form>
 
 <script>
-    var productId;
-    var deleteForm = document.forms['delete-product-form']
-    var btnDelete = document.getElementById('btn-delete-product-modal');
-    // bellow function to sure character ($) from jquery is loaded 
     document.addEventListener("DOMContentLoaded", function(e) {
+        var productId;
+        var deleteForm = document.forms['delete-product-form']
+        var btnDelete = document.getElementById('btn-delete-product-modal');
+        var checkboxAll = $('#checkbox-all');
+        var checkbox = $('input[name="productId[]"]');// khi muon lay ra nhieu
+        var actionsBtn = $('#do-actions-btn');
+        var containerForm = $('form[name="container-form"]');
+        // bellow function to sure character ($) from jquery is loaded 
         // get id product for delete modal when click on delete(href)
         $('#delete-product-modal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) 
-            productId = button.data('id') 
+            var button = $(event.relatedTarget);
+            productId = button.data('id');
         });
-    });
+        // event click on btn-delete to add action for delete form to send method [DELETE] for modal
+        // and submit form
+        btnDelete.onclick = function (event) {
+            deleteForm.action = '/me/products/' + productId + '?_method=DELETE';
+            deleteForm.submit();
+        };
 
-    // event click on btn-delete to add action for delete form to send method [DELETE] for modal
-    // and submit form
-    btnDelete.onclick = function (event) {
-        deleteForm.action = '/me/products/' + productId + '?_method=DELETE';
-        deleteForm.submit();
-    }   
+        // when click on checkboxAll -> check all checkbox child
+        checkboxAll.change(function(){
+            if($(this).prop('checked')) {
+                checkbox.prop('checked', true);
+            }
+            else {
+                checkbox.prop('checked',false);
+            }
+            enableExecutedBtn();
+        });
+        
+        // when click on any checkbox child -> uncheck checkboxAll
+        checkbox.change(function(){
+            var isCheckedAll = checkbox.length === $('input[name="productId[]"]:checked').length;
+            checkboxAll.prop('checked', isCheckedAll);
+            enableExecutedBtn();
+        });
+
+       
+        // enable to executed button 
+        function enableExecutedBtn() {
+            var countChecked = $('input[name="productId[]"]:checked').length;
+            if(countChecked > 0) {
+                actionsBtn.attr('disabled',false);
+            }
+            if(countChecked == 0) {
+                actionsBtn.attr('disabled',true);
+            }
+        };
+        
+    });
 </script>

@@ -4,8 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // Create automatic slug
 var slug = require('mongoose-slug-generator');
-mongoose.plugin(slug);
-
+// Soft delete
 const mongooseDelete = require('mongoose-delete');
 
 const Collection = new Schema({
@@ -22,13 +21,19 @@ const Collection = new Schema({
     occasion: { type: String },
     season: { type: String },
     size: { type: String },
-    slug: { type: String,slug:'type'},
+    slug: { type: String, slug:'type' },
     type: { type: String },
     id_product: { type: String, slug: 'type', unique: true },
-    color:{type:String}
+    color: { type: String },
 }, {
     timestamps: true
 });
 
+mongoose.plugin(slug);
+Collection.plugin(mongooseDelete, {
+    overrideMethods: 'all',
+    deletedAt : true
+});
+
 module.exports = mongoose.model('collection', Collection);
-// ?                         (_collection,_new_schema)
+// ?                         (_collection,_new_schema) 

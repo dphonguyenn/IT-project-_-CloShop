@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000;
 const route = require('./routes');
 const db = require('./config/db');
 // chuyen doi method
-const methodOverride = require('method-override')
+const methodOverride = require('method-override');
 
 
 // * Connect db
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 
 // * HTTP logger
-// app.use(morgan('combined'))
+app.use(morgan('combined'))
 
 // * Template engine
 app.engine(

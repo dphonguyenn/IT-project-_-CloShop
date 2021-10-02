@@ -1,0 +1,112 @@
+<div class="me-page">
+    {{>me-header }}
+    <div class="me-page-main">
+        <div>
+            <h3>Your Recycle Bin</h3>
+            <a href="/me/stored/products">Your products <i class="fas fa-list-ul"></i></a>
+            <div class="mt-4 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
+                    <label class="form-check-label" for="checkbox-all">
+                        Select All
+                    </label>
+                </div>
+                <div class="form-group form-control-sm checkbox-selectAll-options" style="margin-bottom:0;">    
+                    <select class="form-control" name="action">
+                    <option value="restore">Restore</option>
+                    <option value="delete">Hard Delete</option>
+                    </select>
+                </div>
+                <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Apply</button>
+            </div>
+        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Color</th>
+                    {{!-- <th scope="col">Quantity</th> --}}
+                    <th scope="col">Deleted Time</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    {{!-- sum(a,b) -> sum(@index,1) (@index: chi muc array trong hbs--}}
+                    <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this.name}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.type}}</td>
+                    <td>{{this.color}}</td>
+                    <td>{{this.deletedAt}}</td>
+                    <td>
+                        <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Restore</a>
+                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Hard Delete</a>
+                    </td>
+                </tr>
+                {{!-- Khi khong co du lieu --}}
+                {{else}} 
+                <tr>
+                    <td colspan="9">
+                        Your Recycle Bin is empty. 
+                        <a href="/me/stored/products">Return Your products ?</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{!-- confirm delete  --}}
+<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>The action can't restore. Do you want to delete this product permanently ?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Delete</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form class="form-delete" method="POST" name="delete-product-form"></form>
+<form class="form-restore" method="POST" name="restore-product-form"></form>
+<script>
+    document.addEventListener("DOMContentLoaded", function(e) {
+        var productId;
+        var restoreBtn;
+        var deleteForm = document.forms['delete-product-form'];
+        var restoreForm = document.forms['restore-product-form']
+        var btnDelete = document.getElementById('btn-delete-product-modal');
+        $('#delete-product-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) 
+            productId = button.data('id') 
+        });
+        var restoreBtn= $('.btn-restore');
+        restoreBtn.click(function (event) {
+            event.preventDefault();
+            var productID = $(this).data('id');
+            restoreForm.action = '/me/products/' + productID + '/restore?_method=PATCH';
+            restoreForm.submit();
+        });
+        btnDelete.onclick = function (event) {
+            deleteForm.action = '/me/products/' + productId + '/hard-delete?_method=DELETE';
+            deleteForm.submit();
+        };
+    });
+
+</script>
