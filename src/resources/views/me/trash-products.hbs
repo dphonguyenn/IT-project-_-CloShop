@@ -1,9 +1,9 @@
-<div class="me-page">
+<form class="me-page" name="container-form" method="POST" action="/me/products/handle-actions-form">
     {{>me-header }}
     <div class="me-page-main">
         <div>
-            <h3>Your Recycle Bin</h3>
-            <a href="/me/stored/products">Your products <i class="fas fa-list-ul"></i></a>
+            <h3>Recycle Bin ({{countDelete}})</h3>
+            <a href="/me/stored/products">Your products <i class="fas fa-list-ul"></i>({{countProduct}})</a>
             <div class="mt-4 d-flex align-items-center">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
@@ -14,7 +14,7 @@
                 <div class="form-group form-control-sm checkbox-selectAll-options" style="margin-bottom:0;">    
                     <select class="form-control" name="action">
                     <option value="restore">Restore</option>
-                    <option value="delete">Hard Delete</option>
+                    <option value="harddelete">Hard Delete</option>
                     </select>
                 </div>
                 <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Apply</button>
@@ -23,7 +23,8 @@
         <table class="table mt-4">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col"></th>
+                    <th scope="col">STT</th>
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Type</th>
@@ -36,6 +37,11 @@
             <tbody>
                 {{#each products}}
                 <tr>
+                     <td>
+                        <div class="form-check">
+                            <input class="form-check-input" id="checkbox" type="checkbox" name="productId[]" value="{{this._id}}" >
+                        </div>
+                    </td>
                     {{!-- sum(a,b) -> sum(@index,1) (@index: chi muc array trong hbs--}}
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
@@ -60,7 +66,7 @@
             </tbody>
         </table>
     </div>
-</div>
+</form>
 
 {{!-- confirm delete  --}}
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
@@ -91,21 +97,49 @@
         var restoreBtn;
         var deleteForm = document.forms['delete-product-form'];
         var restoreForm = document.forms['restore-product-form']
-        var btnDelete = document.getElementById('btn-delete-product-modal');
+        var btnDelete = $('#btn-delete-product-modal');
+        var checkboxAll = $('#checkbox-all');
+        var checkboxChild = $('input[name="productId[]"]');
+        var restoreBtn = $('.btn-restore');
+        var actionsBtn = $('#do-actions-btn');
+
         $('#delete-product-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) 
             productId = button.data('id') 
         });
-        var restoreBtn= $('.btn-restore');
+
         restoreBtn.click(function (event) {
             event.preventDefault();
             var productID = $(this).data('id');
             restoreForm.action = '/me/products/' + productID + '/restore?_method=PATCH';
             restoreForm.submit();
         });
-        btnDelete.onclick = function (event) {
+
+        btnDelete.click(function (event) {
             deleteForm.action = '/me/products/' + productId + '/hard-delete?_method=DELETE';
             deleteForm.submit();
+        });
+
+        checkboxAll.on('change',function(event) {
+            var isChecked = $(this).prop('checked');
+            checkboxChild.prop('checked',isChecked);
+            enableExecutedBtn();
+        });
+
+        checkboxChild.change(function (event) {
+            var isCheckedAll = checkboxChild.length === $('input[name="productId[]"]:checked').length;
+            checkboxAll.prop('checked',isCheckedAll);
+            enableExecutedBtn();
+        })
+
+        function enableExecutedBtn(){
+            var isChecked = $('input[name="productId[]"]:checked').length;
+            if(isChecked > 0){
+                actionsBtn.attr('disabled',false);
+            }
+            if(isChecked == 0){
+                actionsBtn.attr('disabled',true);
+            }
         };
     });
 

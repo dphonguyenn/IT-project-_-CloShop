@@ -12,12 +12,11 @@ class MeController {
         // formData.id_product = `${req.body.type}`;
         const product = new collections(formData);
         product.save()
-            .then(() => res.redirect("/me/stored/products"))
+            .then(() => res.redirect('/me/stored/products'))
             .catch(next)
     }
     // * [GET] /me/stored/products
     showProducts(req, res, next) {
-
         Promise.all([collections.find({}), collections.countDocumentsDeleted(), collections.countDocuments()])
             .then(([products,countDelete,countProduct]) => {
                 products = mutipleMongooseToObject(products);
@@ -28,27 +27,17 @@ class MeController {
                 });
             })
             .catch(next)
-
-        // collections.countDocumentsDelete()
-        //     .then((countDelete) => {
-
-        //     })
-        //     .catch(next)
-        
-        // collections.find({})
-        //     .then(products => {
-        //         products = mutipleMongooseToObject(products);
-        //         res.render('me/stored-products', { products });
-        //     })
-        //     .catch(next)
-
     }
     // * [GET] /me/stored/trash/product
     trashProducts(req, res, next) {
-        collections.findDeleted({})
-            .then(products => {
+        Promise.all([collections.findDeleted({}), collections.countDocumentsDeleted(), collections.countDocuments()])
+            .then(([products,countDelete,countProduct]) => {
                 products = mutipleMongooseToObject(products);
-                res.render('me/trash-products', { products });
+                res.render('me/trash-products', {
+                    products,
+                    countDelete,
+                    countProduct
+                });
             })
             .catch(next)
     }
@@ -72,24 +61,35 @@ class MeController {
         switch (req.body.action) {
             case 'delete':
                 collections.delete({ _id: { $in: req.body.productId } })
-                    .then(() => res.redirect('back'))// redirect(back): quay tro lai trang trc do
+                    .then(() => res.redirect('back'))
+                    .catch(next)
+                break;
+            case 'restore':
+                collections.restore({ _id: { $in: req.body.productId } })
+                    .then(() => res.redirect('back'))
+                    .catch(next)
+                break;
+            case 'harddelete':
+                collections.deleteMany({ _id: { $in: req.body.productId } })
+                    .then(() => res.redirect('back'))
                     .catch(next)
                 break;
             default:
-                res.status(400).send('Bad Request');
+                console.log(res.json(req.body));
+                // res.status(400).send('Bad Request');
         }
     }
 
     // * soft - [DELETE] /me/products/:id
     deleteProduct(req, res, next) {
         collections.delete({ _id: req.params.id })
-            .then(() => res.redirect('back'))// redirect(back): quay tro lai trang trc do
+            .then(() => res.redirect('back'))
             .catch(next)
     }
     // * [DELETE] /me/products/:id/hard-delete
     hardDeleteProduct(req, res, next) {
         collections.deleteOne({ _id: req.params.id })
-            .then(() => res.redirect('back'))// redirect(back): quay tro lai trang trc do
+            .then(() => res.redirect('back'))
             .catch(next)
     }
     // * [PATCH] /me/products/:id/restore
