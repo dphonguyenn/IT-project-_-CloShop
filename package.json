@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "beauty": "lint-staged",
-    "start": "node src/server.js",
-    "dev": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/server.js",
+    "start": "node server.js",
+    "dev": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect server.js",
     "watch": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\node-sass --watch src/resources/scss/ --output src/Public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -38,6 +38,7 @@
     }
   },
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "js-image-zoom": "^0.7.0",
