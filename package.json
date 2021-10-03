@@ -2,11 +2,11 @@
   "name": "it-project_closhop",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "beauty": "lint-staged",
-    "start": "node src/index.js",
-    "dev": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/index.js",
+    "start": "node server.js",
+    "dev": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\nodemon --inspect src/server.js",
     "watch": "C:\\Users\\ACER\\AppData\\Roaming\\npm\\node-sass --watch src/resources/scss/ --output src/Public/css/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -46,5 +46,8 @@
     "mongoose-delete": "^0.5.4",
     "mongoose-slug-generator": "^1.0.4",
     "morgan": "^1.10.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
   }
 }
