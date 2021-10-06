@@ -1,7 +1,7 @@
 var express = require('express');
 const router = express.Router();
 const MeController = require('../app/controllers/MeController.js');
-router.get('/create-product', MeController.showCreatePage);
+router.get('/create-product', MeController.showCreatePage);// ok
 router.get('/stored/trash/products', MeController.trashProducts);
 router.get('/stored/products', MeController.showProducts);
 router.get('/stored/:id/edit', MeController.showEditPage);
