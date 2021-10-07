@@ -17,7 +17,13 @@ class MeController {
     }
     // * [GET] /me/stored/products
     showProducts(req, res, next) {
-        Promise.all([collections.find({}), collections.countDocumentsDeleted(), collections.countDocuments()])
+        let courseQuery = collections.find({});
+        if (req.query.hasOwnProperty('_sort')) {
+            courseQuery = courseQuery.sort({
+                [req.query.column]: req.query.type,
+            });
+        }
+        Promise.all([courseQuery, collections.countDocumentsDeleted(), collections.countDocuments()])
             .then(([products,countDelete,countProduct]) => {
                 products = mutipleMongooseToObject(products);
                 res.render('me/stored-products', {

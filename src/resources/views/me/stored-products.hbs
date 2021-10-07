@@ -27,16 +27,30 @@
                     <th scope="col">Order</th>
                     <th scope="col">
                         Name
-                        <a href="?_sort&column=name&type">
-                            <span class="oi oi-elevator"></span>
-                        </a>
+                        {{{sortable 'name' _sort}}}
+                        {{!-- truyen parameter len url --}}
                     </th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Color</th>                    
+                    <th scope="col">
+                        Price Product
+                        {{{sortable 'price' _sort}}}
+                    </th>
+                    <th scope="col">
+                        Type
+                        {{{sortable 'type' _sort}}}
+                    </th>
+                    <th scope="col">
+                        Color
+                        {{{sortable 'color' _sort}}}
+                    </th>                    
                     {{!-- <th scope="col">Quantity</th> --}}
-                    <th scope="col">Created Time</th>
-                    <th scope="col">Updated Time</th>
+                    <th scope="col">
+                        Created Time
+                        {{{sortable 'createdAt' _sort}}}
+                    </th>
+                    <th scope="col">
+                        Updated Time
+                        {{{sortable 'updatedAt' _sort}}}
+                    </th>
                     <th></th>
                 </tr>
             </thead>
