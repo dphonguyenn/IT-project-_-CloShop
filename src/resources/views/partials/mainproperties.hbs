@@ -9,28 +9,28 @@
                     <a class="menu-link shop-link" href="#">SHOP</a>
                     <ul class="sub-menu sub-menu-unactive">
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/shirt">SHIRTS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/shirt">SHIRTS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/tshirt">T-SHIRTS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/tshirt">T-SHIRTS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/hoodies">HOODIES</a>
+                            <a class="menu-link menu-sub-link" href="/collections/hoodies">HOODIES</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/sweatshirt">SWEATSHIRTS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/sweatshirt">SWEATSHIRTS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/pants">PANTS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/pants">PANTS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/shorts">SHORTS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/shorts">SHORTS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/jacket">JACKETS</a>
+                            <a class="menu-link menu-sub-link" href="/collections/jacket">JACKETS</a>
                         </li>
                         <li class="sub-menu-item">
-                            <a class="menu-link" href="/collections/beanie">BEANIE</a>
+                            <a class="menu-link menu-sub-link" href="/collections/beanie">BEANIE</a>
                         </li>
                     </ul>
                 </li>
@@ -68,7 +68,7 @@
     const sub_menu = $('.sub-menu');
     // set active cho items 
     menu_links.forEach((link, index) => {
-        link.onclick = function (e) {
+        link.onmouseover = function (e) {
             if (link === shop_link) {
                 $('.menu-link.active').classList.remove('active');
                 this.classList.add('active');

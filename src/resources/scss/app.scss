@@ -8,7 +8,29 @@
 
 
 // * CSS properties
-
+.flash-message {
+    border-radius:3px;
+    color:black;
+    width:30%;
+    padding:12px;
+    i{
+        margin-right: 12px;
+        color: white;
+    }
+}
+.flash-message.flash-success{
+    background-color:#28a785;
+    li {
+        list-style: none;
+        display: inline-block;
+    };
+    a {
+        color: beige;
+    }
+}
+.flash-message.flash-error{
+    background-color:#dc3545
+}
 // * CSS for pages
 .app {
     .avt-home-page {
@@ -164,10 +186,10 @@
                         opacity: 0.7;
                     }
 
-                    .menu-link.active {
-                        font-weight: 700;
-                        opacity: 1;
-                    }
+                    // .menu-link.active {
+                    //     font-weight: 700;
+                    //     opacity: 1;
+                    // }
                 }
 
                 .menu-item.item-shop {
@@ -193,9 +215,6 @@
                                 opacity: 1;
                             }
                         }
-
-
-
                     }
 
                     .sub-menu.sub-menu-active {
@@ -495,23 +514,23 @@
 .login {
 
     .container-login{
-      position: fixed;
-      transform: translateX(-50%);
-      left: 50%;
-      width: 25%;
-      height: 60%;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 10px;
-      box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
-      display: block;
-      z-index: 2;
+        position: fixed;
+        transform: translateX(-50%);
+        left: 50%;
+        width: 25%;
+        height: 60%;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+        display: block;
+        z-index: 2;
     }
     .container-login h1{
-      text-align: center;
+        text-align: center;
     }
     .container-login form{
-      padding: 0 40px;
-      box-sizing: border-box;
+        padding: 0 40px;
+        box-sizing: border-box;
     }
     .container-login.disabled{
         display: none;
@@ -530,83 +549,83 @@
     }
 
     form .txt_field{
-      position: relative;
-      border-bottom: 2px solid #adadad;
-      margin: 30px 0;
+        position: relative;
+        border-bottom: 2px solid #adadad;
+        margin: 30px 0;
     }
     .txt_field input{
-      width: 100%;
-      padding: 0 5px;
-      height: 40px;
-      font-size: 16px;
-      border: none;
-      background: none;
-      outline: none;
+        width: 100%;
+        padding: 0 5px;
+        height: 40px;
+        font-size: 16px;
+        border: none;
+        background: none;
+        outline: none;
     }
     .txt_field label{
-      position: absolute;
-      top: 50%;
-      left: 5px;
-      transform: translateY(-50%);
-      font-size: 16px;
-      pointer-events: none;
-      transition: .5s;
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        font-size: 16px;
+        pointer-events: none;
+        transition: .5s;
     }
     .txt_field span::before{
-      content: '';
-      position: absolute;
-      top: 40px;
-      left: 0;
-      width: 0%;
-      height: 2px;
-      background: #2691d9;
-      transition: .5s;
+        content: '';
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 0%;
+        height: 2px;
+        background: #2691d9;
+        transition: .5s;
     }
     .txt_field input:focus ~ label,
     .txt_field input:valid ~ label{
-      top: -5px;
-      color: #2691d9;
+        top: -5px;
+        color: #2691d9;
     }
     .txt_field input:focus ~ span::before,
     .txt_field input:valid ~ span::before{
-      width: 100%;
+        width: 100%;
     }
     .pass{
-      margin: -5px 0 20px 5px;
-      cursor: pointer;
+        margin: -5px 0 20px 5px;
+        cursor: pointer;
     }
     .pass:hover{
-      text-decoration: underline;
+        text-decoration: underline;
     }
     input[type="submit"]{
-      width: 100%;
-      height: 50px;
-      border: 1px solid;
-      background: #2691d9;
-      border-radius: 25px;
-      font-size: 18px;
-      color: #e9f4fb;
-      font-weight: 700;
-      cursor: pointer;
-      outline: none;
-      border:0;
+        width: 100%;
+        height: 50px;
+        border: 1px solid;
+        background: #2691d9;
+        border-radius: 25px;
+        font-size: 18px;
+        color: #e9f4fb;
+        font-weight: 700;
+        cursor: pointer;
+        outline: none;
+        border:0;
     }
     input[type="submit"]:hover{
-      border-color: rgba(255,255,255,0.9);
-      transition: .5s;
+        border-color: rgba(255,255,255,0.9);
+        transition: .5s;
     }
     .signup_link{
-      margin: 30px 0;
-      text-align: center;
-      font-size: 16px;
-      color: #666666;
+        margin: 30px 0;
+        text-align: center;
+        font-size: 16px;
+        color: #666666;
     }
     .signup_link a{
-      color: rgba(255,255,255,0.9);
-      text-decoration: none;
+        color: rgba(255,255,255,0.9);
+        text-decoration: none;
     }
     .signup_link a:hover{
-      text-decoration: underline;
+        text-decoration: underline;
     }
 }
 

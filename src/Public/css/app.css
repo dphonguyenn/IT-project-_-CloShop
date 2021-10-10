@@ -3,6 +3,26 @@
   margin: 0;
   box-sizing: border-box; }
 
+.flash-message {
+  border-radius: 3px;
+  color: black;
+  width: 30%;
+  padding: 12px; }
+  .flash-message i {
+    margin-right: 12px;
+    color: white; }
+
+.flash-message.flash-success {
+  background-color: #28a785; }
+  .flash-message.flash-success li {
+    list-style: none;
+    display: inline-block; }
+  .flash-message.flash-success a {
+    color: beige; }
+
+.flash-message.flash-error {
+  background-color: #dc3545; }
+
 .app .avt-home-page {
   position: fixed;
   background-image: url(https://wallpapercave.com/wp/wp7154971.jpg);
@@ -111,9 +131,6 @@
     color: white; }
     .main-properties .wrapper-menu .side-bar .menu .menu-item .menu-link {
       opacity: 0.7; }
-    .main-properties .wrapper-menu .side-bar .menu .menu-item .menu-link.active {
-      font-weight: 700;
-      opacity: 1; }
     .main-properties .wrapper-menu .side-bar .menu .menu-item.item-shop .menu-link {
       opacity: 0.7; }
     .main-properties .wrapper-menu .side-bar .menu .menu-item.item-shop .menu-link.active {

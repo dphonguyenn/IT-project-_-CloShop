@@ -29,6 +29,18 @@ const Collection = new Schema({
     timestamps: true
 });
 
+// custom query helpers
+Collection.query.sortable = function (req) {
+    if (req.query.hasOwnProperty('_sort')) {
+        const isTypes = ['asc', 'desc'].includes(req.query.type);
+        return this.sort({
+            [req.query.column]: isTypes ? req.query.type : 'desc'
+        });
+    }
+    return this;
+}
+
+// add plugins for soft delete
 mongoose.plugin(slug);
 Collection.plugin(mongooseDelete, {
     overrideMethods: 'all',
