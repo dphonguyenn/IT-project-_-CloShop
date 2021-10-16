@@ -3,24 +3,26 @@
         <i class="fas fa-times"></i>
     </div>
     <h1>Login</h1>
-    <form method="post">
-    <div class="txt_field">
-        <input type="text" required>
-        <span></span>
-        <label>Username</label>
-    </div>
-    <div class="txt_field">
-        <input type="password" required>
-        <span></span>
-        <label>Password</label>
-    </div>
-    <div class="pass">Forgot Password?</div>
-    <input type="submit" value="Login">
-    <div class="signup_link">
-      Not a member? <a href="/register">Signup</a>
-    </div>
+    <form method="POST" action="/login">
+        <div class="txt_field">
+            <input type="text" required>
+            <span></span>
+            <label value="username">Username</label>
+        </div>
+        <div class="txt_field">
+            <input type="password" required>
+            <span></span>
+            <label value="password">Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+            Not a member? 
+            <a href="/register">Signup</a>
+        </div>
     </form>
 </div>
+
 <script>
     const login_container = document.querySelector('.container-login');
     const login_menu = document.querySelector('#login');

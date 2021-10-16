@@ -36,16 +36,59 @@
 // * _ Luc nay khi tien hanh xoa trong db se them field _ deleted: true _ o product ma ta xoa nhung khong cap nhap tren List Products WEB 
 // * B3: Add options { overrideMethods: 'all' } o plugin vua tao de ghi de len ban ghi cu 
 // * _ List Product WEB se duoc cap nhap khi xoa nhu default _ deleteOne 
-// * B4: Add options { deletedAt : true } vao plugin _ de cap nhap them field deletedAt vao db de biet thoi gian ta thuc hien xoa
+// * B4: Add options { deletedAt : true } vao plugin (collections model) _ de cap nhap them field deletedAt vao db de biet thoi gian ta thuc hien xoa
 
 
 // todo:  Luong hoat dong cua middleware-sort:
-// *   B1: add vao file main server middle-ware can su dung:
-// *   B2: middle-ware này sẽ áp dụng ở tất cả các trang _ mặc định của middleware-sort là tắt khi gặp url có query _sort (res.query._sort) sẽ mở 
-// *   B3: trong middleware định nghĩa một biến vs phương thức locals để truyền dữ liệu vào view 
-// *   B3: Khi trang load sẽ load các san phẩm theo thứ tự mặc định và hàm sortable của handlebars ban đầu sẽ load icon sort mặc định
-// *   B4: Khi nhấn vào icon sort sẽ gửi đi 1 href query đính trên URL
-// *   B5: 
+// ! query: ?_sort&column=price&type=desc 
+// * _sortMiddleware.js (folder middleware) _ middle-ware này sẽ hoạt động ở tất cả các pages để thực hiện công việc sort
+// module.exports = function sortMiddleware(req, res, next) {
+//    res.locals._sort = {
+//         enabled: false,
+//         type:'default'
+//     };
+//     if (req.query.hasOwnProperty('_sort')) {
+//         Object.assign(res.locals._sort, {
+//             enabled: true,
+//             type: req.query.type,
+//             column: req.query.column,
+//         })
+//     }
+//     next();
+// }
+// ? tạo một object vs phương thức locals để đưa data và view _vs default type là không sort
+// ? khi gặp URL có query: _sort _ gán lại kiểu sort và cột được sort cho object 
+// * _server.js
+// const sortMiddleware = require('./src/app/middlewares/sortMiddleware');
+// app.use(sortMiddleware);
+// * handlebars.js (folder helper)
+// sortable: (fieldName, sort) => {
+//         const icons = {
+//             default: 'oi oi-elevator',
+//             asc: 'fas fa-sort-alpha-up-alt',
+//             desc: 'fas fa-sort-alpha-up'
+//         }
+//         const types = {
+//             default: 'desc',
+//             asc: 'desc',
+//             desc: 'asc'
+//         }
+//         const sortType = fieldName === sort.column ? sort.type : 'default';
+//         const icon = icons[sortType];
+//         const type = types[sortType];
+//         const href = Handlebars.escapeExpression(`?_sort&column=${fieldName}&type=${type}`)
+//         const result = `<a href="${href}">
+//             <span class="${icon}"></span>
+//         </a>`
+//         return new Handlebars.SafeString(result);
+//     }
+// ? function-helper sortable nhận vào 2 đối số 1 là tên của cột cần sort, 2 là object _sort định nghĩa trong middleware 
+// ? mặc định sortable sẽ render ra default icons và không sort
+// ? khi nhấn vào icons sort, thẻ a của icons sẽ truyền đi href="?_sort&column=${fieldName}&type=${type}" lên URL
+// ? lúc này middleware nhận được và gán lại các field cho object _sort
+// ? khi qua được middleware sẽ đến controller _ controller nếu nhận được res.query.hasOwnProperties('_sort') thì sẽ thực hiện công việc sort -> hoàn thành công việc sort 
+
+
 
 // ? cookie 
 // * Cookie là những tập tin một trang web gửi đến máy người dùng và được lưu lại thông qua trình duyệt khi người dùng truy cập trang web đó. 
@@ -78,4 +121,31 @@
 // res.redirect('back');
 // _ add to controller _ render
 // res.render('register',{ message: req.flash('message')});
-// _ 
+// _ ở view.hbs cần hiển thị flash-message
+// tạo logic để render flash-message
+
+
+
+// ? JWT (JsonWebToken)
+// * JWT là một phương tiện đại diện cho các yêu cầu chuyển giao giữa hai bên Client – Server
+// * JWT bao gồm 3 phần, được ngăn cách nhau bởi dấu chấm (.): header.payload.signature
+// * data + secret  ---(sign)--> token (header.payload.signature)
+// * VD : 
+// const jwt = require('jsonwebtoken');
+// var data = { username: 'duyphongz1' }
+// var secret = { password: 'phong123456' }
+// var token = sign(data, secret)
+// * --> token sẽ được encode thành dãy JWT
+// * token + secret --(verify)--> token
+// * VD :
+// var decode = verify(token, secret) 
+// * --> decode = data = { username: 'duyphongz1' }
+// * Mỗi token khi được tạo ra đều có hạn sử dụng(expire) và sẽ không thể hủy cho đến khi hết hạn sử dụng
+// * Để xét hạn sử dụng cho token:
+// token = jwt.sign(data, secret, {
+//     expiresIn: (_time: đơn vị là giây)
+// })
+// * Nếu hàm sign có callback thì hàm sẽ làm hàm async
+// todo: Sử dụng JWT để làm chức năng login
+// npm install jsonwebtoken
+// 
