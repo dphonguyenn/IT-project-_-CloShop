@@ -1,4 +1,4 @@
-var express = require('express');
+const express = require('express');
 const router = express.Router();
 const MeController = require('../app/controllers/MeController.js');
 router.get('/create-product', MeController.showCreatePage);

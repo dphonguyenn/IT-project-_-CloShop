@@ -21,7 +21,7 @@ class RegisterController {
     }
     // * [GET] /register
     showRegisterPage(req, res, next) {
-        res.render('register',{ 
+        res.render('register',{
                 message_error: req.flash('message-error'), 
                 message_success: req.flash('message-success') 
             }

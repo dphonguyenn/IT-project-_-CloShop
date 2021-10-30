@@ -3,17 +3,18 @@
         <i class="fas fa-times"></i>
     </div>
     <h1>Login</h1>
-    <form method="POST" action="/login">
+    <form method="POST" action="/auth/login">
         <div class="txt_field">
-            <input type="text" required>
+            <input name="username" type="text" required>
             <span></span>
-            <label value="username">Username</label>
+            <label >Username</label>
         </div>
         <div class="txt_field">
-            <input type="password" required>
+            <input name="password" type="password" required>
             <span></span>
-            <label value="password">Password</label>
+            <label >Password</label>
         </div>
+        <span>{{>messages}}</span>
         <div class="pass">Forgot Password?</div>
         <input type="submit" value="Login">
         <div class="signup_link">
