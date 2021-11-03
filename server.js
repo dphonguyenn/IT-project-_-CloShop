@@ -17,6 +17,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const authUtil = require('./src/util/auth');
 const cookieParser = require('cookie-parser');
+const inforUser = require('./src/app/middlewares/inforUser');
 
 db.connect();
 dotenv.config();
@@ -31,7 +32,6 @@ handlebars({
 // * passport.js
 const users = require('./src/app/model/user');
 app.locals.users = users;
-
 passport.use(new LocalStrategy((username, password, done) => {
     app.locals.users.findOne({ username: username }, (err, user) => {
         if (err) {
@@ -66,6 +66,7 @@ app.use((req, res, next) => {
     res.locals.loggedIn = req.isAuthenticated();
     next();
 });
+app.use(inforUser);
 app.use(sortMiddleware);
 app.use(flash());
 // * Thao tac voi cac file tinh

@@ -1,4 +1,3 @@
-const { mutipleMongooseToObject, mongooseToObject } = require('../../util/mongoose');
 class HomeController {
     // * [GET] /
     showMainPage(req, res, next) {

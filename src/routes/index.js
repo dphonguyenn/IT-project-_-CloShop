@@ -10,7 +10,7 @@ const MeRouter = require('./me');
 const AuthRouter = require('./auth');
 const ErrorRouter = require('./404');
 const Authenticated = require('../app/middlewares/authenticated');
-// const checkAdmin = require('../app/middlewares/checkAdmin');
+const checkAdmin = require('../app/middlewares/checkAdmin');
 function route(app) {
     app.use('/collections', collectionsRouter);
     app.use('/returns', ReturnsRouter);
@@ -20,7 +20,7 @@ function route(app) {
     app.use('/products', ProductsRouter);
     app.use('/register', RegisterRouter);
     app.use('/auth',AuthRouter);
-    app.use('/me',Authenticated, MeRouter);
+    app.use('/me',Authenticated, checkAdmin, MeRouter);
     app.use('/404page', ErrorRouter);
     app.use('/', HomeRouter);
 }

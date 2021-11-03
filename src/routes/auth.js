@@ -7,5 +7,6 @@ router.post('/login', passport.authenticate('local', {
     failureRedirect:'/404page',
     failureFlash:'Wrong username or password'
 }), AuthController.login);
-router.get('/logout', AuthController.logout);
+router.post('/logout', AuthController.logout);
+router.post('/logout-me', AuthController.logoutMe);
 module.exports = router;

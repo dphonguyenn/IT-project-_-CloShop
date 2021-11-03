@@ -1,5 +1,5 @@
 const collections = require('../model/collections/collections');
-const { mutipleMongooseToObject,mongooseToObject } = require('../../util/mongoose');
+const { multipleMongooseToObject,mongooseToObject } = require('../../util/mongoose');
 class MeController {
     // * [GET] /me/create-product
     showCreatePage(req, res, next) {
@@ -22,7 +22,7 @@ class MeController {
             collections.countDocumentsDeleted(),
             collections.countDocuments()])
             .then(([products,countDelete,countProduct]) => {
-                products = mutipleMongooseToObject(products);
+                products = multipleMongooseToObject(products);
                 res.render('me/stored-products', {
                     products,
                     countDelete,
@@ -35,7 +35,7 @@ class MeController {
     trashProducts(req, res, next) {
         Promise.all([collections.findDeleted({}), collections.countDocumentsDeleted(), collections.countDocuments()])
             .then(([products,countDelete,countProduct]) => {
-                products = mutipleMongooseToObject(products);
+                products = multipleMongooseToObject(products);
                 res.render('me/trash-products', {
                     products,
                     countDelete,

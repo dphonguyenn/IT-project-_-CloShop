@@ -1,6 +1,7 @@
 module.exports = function Authenticated(req, res, next) {
     if (!req.isAuthenticated()) {
-        res.json('Ban chua dang nhap!');
+        req.flash('message-notlogin', 'Please login to take action.');
+        return res.redirect('back');
     }
     next();
 }
