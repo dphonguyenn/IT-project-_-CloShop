@@ -24,16 +24,7 @@ module.exports = {
         </a>`
         return new Handlebars.SafeString(result);
     },
-    // haveOrNotUser: (isAuthenticated) => {
-    //     if (isAuthenticated === false) {
-    //         return `<li class="menu-item" id="login">
-    //                 <a  class="menu-link" href="#">LOGIN</a>
-    //             </li>`
-    //     }
-    //     else {
-    //         return `<li class="menu-item" id="user">
-    //                 <a  class="menu-link" href="#">{{user.user_fullname}}</a>
-    //             </li>`
-    //     }
+    // active: (index) => {
+    //     return index !== 1 ? "" : "active";     
     // }
 };

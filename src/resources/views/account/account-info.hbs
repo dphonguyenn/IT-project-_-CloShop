@@ -1,0 +1,36 @@
+<div class="pages">
+    {{>header}}
+    <div class="main-page">
+        {{>mainproperties}}
+        <div class="main-part">
+            <h2 class="page-header">
+                Thông tin tài khoản
+            </h2>
+            {{#if message_success}}
+            <div class="flash-message flash-success">
+                <i class="fas fa-check-circle"></i>{{message_success}}
+            </div>
+            {{else}}
+            <div class="flash-message" style="display:none;"></div>
+            {{/if}}
+            <div class="page-content-account">
+               <form action="/account/update-account/{{user.user_username}}?_method=PUT" class="account-info" method="POST">
+                   <p>Tên đăng nhập</p>
+                   <input type="text" name="username" value="{{user.user_username}}">
+                   <p>Mật khẩu</p>
+                   <input type="text" name="password" value="{{user.user_password}}">
+                   <p>Họ tên</p>
+                   <input type="text" name="fullname" value="{{user.user_fullname}}">
+                   <p>Email</p>
+                   <input type="text" name="email" value="{{user.user_email}}">
+                   <p>Số điện thoại</p>
+                   <input type="text" name="phone" value="{{user.user_phone}}">
+                   <p>Địa chỉ</p>
+                   <input type="text" name="address" value="{{user.user_address}}">
+                   <input type="submit" value="Cập nhật">
+               </form>
+            </div>
+        </div>
+    </div>
+     {{>footer}}
+</div>

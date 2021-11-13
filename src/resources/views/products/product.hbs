@@ -3,6 +3,16 @@
     <div class="main-page">
         {{>mainproperties}}
         <div class="main-part">
+            {{#if message.message-add-success}}
+            <div class="flash-message flash-success">
+                <i class="fas fa-check-circle"></i>Add to cart successfully!
+                <li>
+                    <a href="/cart">Paying </a>or <a href="/collections/{{collection.type}}"> continuous shopping?</a>
+                </li>
+            </div>
+            {{else}}
+            <div class="flash-message" style="display:none;"></div>
+            {{/if}}
             <div class="product-content">
                 <div class="row">
                     <div class="col-lg-8 col-sm-6">
@@ -54,19 +64,19 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="row">
-                            <h4 style="font: size 20px;">Số Lượng</h4>
+                        <div class="row flex-column">
+                            {{!-- <h4 style="font: size 20px;">Số Lượng</h4> --}}
                             <br>
-                            <div class="part-num-product">
-                                <input type="number" value="1" min="1">
-                                <button>
+                            <div class="part-num-product">                               
+                                {{!-- <input type="number" value="1" min="1" max="10"> --}}
+                                <a href="/products/add-to-cart/{{collection._id}}">
                                     <i class="fas fa-shopping-cart"> ADD TO CART</i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
                             <div class="product-description">
-                                <h4>Description</h4>
+                                <h4>Description:</h4>
                                 <p>
                                     Season: {{collection.season}} <br>
                                     Occasion: {{collection.occasion}} <br>

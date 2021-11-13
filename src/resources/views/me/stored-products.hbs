@@ -116,7 +116,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function(e) {
         var productId;
-        var deleteForm = document.forms['delete-product-form']
+        var deleteForm = document.forms['delete-product-form'];
         var btnDelete = document.getElementById('btn-delete-product-modal');
         var checkboxAll = $('#checkbox-all');
         var checkbox = $('input[name="productId[]"]');// khi muon lay ra nhieu
@@ -153,7 +153,6 @@
             enableExecutedBtn();
         });
 
-       
         // enable to executed button 
         function enableExecutedBtn() {
             var countChecked = $('input[name="productId[]"]:checked').length;

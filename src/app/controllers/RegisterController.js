@@ -6,7 +6,7 @@ class RegisterController {
         users.findOne({ username: req.body.username })
             .then(data => {
                 if (data) {
-                    req.flash('message-error','The username of Account has already axisted!');
+                    req.flash('message-error','Account has already existed!');
                     res.redirect('/register');
                 }
                 else {
@@ -21,9 +21,9 @@ class RegisterController {
     }
     // * [GET] /register
     showRegisterPage(req, res, next) {
-        res.render('register',{
-                message_error: req.flash('message-error'), 
-                message_success: req.flash('message-success') 
+        const messages = req.flash();
+        res.render('register', {
+                messages
             }
         );
     }

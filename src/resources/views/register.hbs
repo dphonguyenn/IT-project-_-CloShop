@@ -4,9 +4,9 @@
     <div class="main-page">
         {{>mainproperties}}
         <div class="main-part">
-            {{#if message_success}}
+            {{#if messages.message-success}}
             <div class="flash-message flash-success">
-                <i class="fas fa-check-circle"></i>{{message_success}}
+                <i class="fas fa-check-circle"></i>{{messages.message-success}}
                 <li id="toast-message-signin">
                     <a href="#">Sign in now</a>
                 </li>
@@ -14,9 +14,9 @@
             {{else}}
             <div class="flash-message" style="display:none;"></div>
             {{/if}}
-            {{#if message_error}}
+            {{#if messages.message-error}}
             <div class="flash-message flash-error">
-                <i class="fas fa-times-circle"></i>{{message_error}}
+                <i class="fas fa-times-circle"></i>{{messages.message-error}}
             </div>
             {{else}}
             <div class="flash-message" style="display:none;"></div>

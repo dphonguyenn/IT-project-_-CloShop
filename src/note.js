@@ -146,6 +146,75 @@
 //     expiresIn: (_time: đơn vị là giây)
 // })
 // * Nếu hàm sign có callback thì hàm sẽ làm hàm async
-// todo: Sử dụng JWT để làm chức năng login
-// npm install jsonwebtoken
-// 
+
+
+// ? PASSPORT.JS
+// todo: Sử dụng PASSPORT.JS để thực hiện xác thực và phân quyền người dùng
+// * B1: Install passport.js:
+// npm install passport
+// * B2: Config PASSPORT ở file server.js
+// const passport = require('passport');
+// const LocalStrategy = require('passport-local').Strategy;
+// const session = require('express-session');
+// const cookieParser = require('cookie-parser');
+// const users = require('./src/app/model/user');
+// app.locals.users = users;
+// passport.use(new LocalStrategy((username, password, done) => {
+//     app.locals.users.findOne({ username: username }, (err, user) => {
+//         if (err) {
+//             return done(err);
+//         }
+//         if (!user) {
+//             return done(null, false);
+//         }
+//         if (user.password !== password) {
+//             return done(null, false);
+//         }
+//         return done(null, user);
+//     });
+// }));
+
+// passport.serializeUser((user, done) => {
+//     done(null, user._id);
+// });
+
+// passport.deserializeUser((id, done) => {
+//     done(null, { id });
+// });
+
+// app.use(session({
+//     secret: 'secret',
+//     resave: false,
+//     saveUninitialized: false,
+// }));
+// app.use(passport.initialize());
+// app.use(passport.session());
+// app.use((req, res, next) => {
+//     res.locals.loggedIn = req.isAuthenticated();
+//     next();
+// });
+// app.use(cookieParser());
+// * B3: Tạo Router cho tuyến đường /auth để thực hiện các công việc liên quan đến xác thực, login, logout:
+// const express = require('express');
+// const router = express.Router();
+// const authUtil = require('../util/auth');
+// const passport = require('passport');
+// const AuthController = require('../app/controllers/AuthController');
+// router.post('/login', passport.authenticate('local', {
+//     failureRedirect:'/404page',
+//     failureFlash:'Wrong username or password'
+// }), AuthController.login);
+// router.post('/logout', AuthController.logout);
+// router.post('/logout-me', AuthController.logoutMe);
+// module.exports = router;
+// * B4: Build AuthController cho /auth
+// src/app/controller/AuthController
+
+
+// todo: Use res.locals._variable to save user's data 
+
+
+// todo: Panigation
+
+
+// todo: 

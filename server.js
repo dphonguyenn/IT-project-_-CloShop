@@ -14,6 +14,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
 const sortMiddleware = require('./src/app/middlewares/sortMiddleware');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const authUtil = require('./src/util/auth');
 const cookieParser = require('cookie-parser');
@@ -59,11 +61,17 @@ app.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: false,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost:27017/collections_clothes'
+    }),
+    cookie: { masAge: 180 * 60 * 1000 },
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
     res.locals.loggedIn = req.isAuthenticated();
+    res.locals.session = req.session;
     next();
 });
 app.use(inforUser);

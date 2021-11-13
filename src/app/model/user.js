@@ -10,7 +10,6 @@ const User = new Schema({
     phone: { type: String },
     fullname: { type: String },
     boss: { type: Boolean, default: false },
-    //birth: { type: Date },
 }, {
     timestamps: true
 });

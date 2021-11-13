@@ -1,32 +1,34 @@
 <header class="header">
     <a class="brand-shop" href="/">PT2STREET</a>
-    <div id="user-me">
-        <a class="user-icon" href="">
-            <i class="fas fa-user-circle"></i>
-            <p>{{user.user_fullname}}</p>
-        </a>
-        <div class="dropdown-user-menu">
-            <div class="props-dropdown-user-menu">
-                <i class="fas fa-home"></i><a href="/">Home</a>
+    <div class="content-header">
+        <div id="user-me">
+            <a class="icons-header" href="">
+                <i class="fas fa-user-circle"></i>
+                <p>{{user.user_fullname}}</p>
+            </a>
+            <div class="dropdown-user-menu">
+                <div class="props-dropdown-user-menu">
+                    <i class="fas fa-home"></i><a href="/">Home</a>
+                </div>
+                <div class="props-dropdown-user-menu">
+                    <i class="far fa-address-card"></i><a href="/account/information-account/">Account Management</a>
+                </div>
+                <div class="props-dropdown-user-menu">
+                    <i class="far fa-plus-square"></i><a href="/me/create-product">	&nbsp;Create product</a>
+                </div>
+                <div class="props-dropdown-user-menu">
+                    <i class="fas fa-boxes"></i><a href="/me/stored/products">My Products</a>    
+                </div>
+                <div class="props-dropdown-user-menu">
+                    <i class="far fa-clipboard"></i></i><a href="">	&nbsp;My Bill</a>    
+                </div>
+                <div class="props-dropdown-user-menu">
+                    <i class="fas fa-money-bill-wave"></i><a href="">Revenue</a>     
+                </div>
+                <form action="/auth/logout-me" method="post">
+                    <input type="submit" value="Logout">
+                </form>
             </div>
-            <div class="props-dropdown-user-menu">
-                <i class="far fa-address-card"></i><a href="">Account Management</a>
-            </div>
-            <div class="props-dropdown-user-menu">
-                <i class="far fa-plus-square"></i><a href="/me/create-product">	&nbsp;Create product</a>
-            </div>
-            <div class="props-dropdown-user-menu">
-                <i class="fas fa-boxes"></i><a href="/me/stored/products">My Products</a>    
-            </div>
-            <div class="props-dropdown-user-menu">
-                <i class="far fa-clipboard"></i></i><a href="">	&nbsp;My Bill</a>    
-            </div>
-            <div class="props-dropdown-user-menu">
-                <i class="fas fa-money-bill-wave"></i><a href="">Revenue</a>     
-            </div>
-            <form action="/auth/logout-me" method="post">
-                <input type="submit" value="Logout">
-            </form>
         </div>
     </div>
 </header>

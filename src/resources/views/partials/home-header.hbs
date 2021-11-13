@@ -1,26 +1,14 @@
 <header class="header">
     <a class="brand-shop" href="/">
-        <img src="https://i.postimg.cc/tTcXjKmw/PT2brand-adj-adobespark-removebg-preview-1.png" alt="PT2STREETWEAR">
+        <img src="https://i.postimg.cc/JzdDn2g3/output-onlinepngtools.png" alt="PT2STREETWEAR">
     </a>
     {{#if user.isAuthenticated}}
     <div class="content-header">
-        <div id="cart-header">
-            <a class="icons-header" href="/cart">
-                <i class="fas fa-cart-plus"></i>
-                <div style="display: flex;justify-content:center">
-                    <p>Giỏ hàng</p>
-                    {{#if session.cart.totalQty}}
-                    <span>{{session.cart.totalQty}}</span>
-                    {{/if}}
-                </div>
-            </a>
-        </div>
         <div id="user">
             <a class="icons-header" href="">
                 <i class="fas fa-user-circle"></i>
                 <p>{{user.user_fullname}}</p>
             </a>
-
             {{#if user.user_boss}}
             <div class="dropdown-user-menu">
                 <div class="props-dropdown-user-menu">

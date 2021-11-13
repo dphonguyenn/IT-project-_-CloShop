@@ -2,7 +2,7 @@
     {{>header}}
     <div class="main-page">
         {{>mainproperties}}
-        <div class="main-part">
+        <div class="main-part" style="min-height:200px;">
             <h2 class="page-header">
                 GIỎ HÀNG
             </h2>
@@ -62,57 +62,9 @@
                     <p>Giỏ hàng chưa có sản phẩm nào </p>                  
                     <a href="/collections/shirt" class="non-prd-btn">Mua sắm ngay</a>                    
                 </div>
-                {{/if}}
+               {{/if}}
             </div>
         </div>
     </div>
     {{>footer}}
 </div>
-
-{{!-- confirm delete  --}}
-<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Chú ý</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Bạn muốn xóa sản phẩm này ra khỏi giỏ hàng?</p>
-      </div>
-      <div class="modal-footer">
-        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Xóa</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy bỏ</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-{{!-- hidden delete form --}}
-<form class="form-delete" method="get" name="delete-product-form"></form>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(e) {
-        (function($) {
-            var productId;
-            var deleteForm = document.forms['delete-product-form'];
-            var btnDelete = document.getElementById('btn-delete-product-modal');
-            $('#delete-product-modal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget);
-                productId = button.data('id');
-            });
-            btnDelete.onclick = function (event) {
-                deleteForm.action = '/products/remove-to-cart/' + productId;
-                deleteForm.submit();
-            };
-        })(jQuery);
-    })
-</script>
-
-
-
-
-
-

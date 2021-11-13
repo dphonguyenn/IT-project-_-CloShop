@@ -7,7 +7,7 @@ class AuthController {
     // *[POST] /auth/logout
     logout(req, res, next) {
         req.session.destroy();
-        res.redirect('back');
+        res.redirect('/');
     }
     // *[POST] /auth/logout-me
     logoutMe(req, res, next) {

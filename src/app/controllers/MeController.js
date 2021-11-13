@@ -20,7 +20,8 @@ class MeController {
         Promise.all([
             collections.find({}).sortable(req),// da custom chi khi can sort chi can .sortable(req)
             collections.countDocumentsDeleted(),
-            collections.countDocuments()])
+            collections.countDocuments()
+        ])
             .then(([products,countDelete,countProduct]) => {
                 products = multipleMongooseToObject(products);
                 res.render('me/stored-products', {
@@ -33,7 +34,11 @@ class MeController {
     }
     // * [GET] /me/stored/trash/product
     trashProducts(req, res, next) {
-        Promise.all([collections.findDeleted({}), collections.countDocumentsDeleted(), collections.countDocuments()])
+        Promise.all([
+            collections.findDeleted({}),
+            collections.countDocumentsDeleted(),
+            collections.countDocuments()
+        ])
             .then(([products,countDelete,countProduct]) => {
                 products = multipleMongooseToObject(products);
                 res.render('me/trash-products', {

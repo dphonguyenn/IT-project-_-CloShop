@@ -9,8 +9,10 @@ const RegisterRouter = require('./register');
 const MeRouter = require('./me');
 const AuthRouter = require('./auth');
 const ErrorRouter = require('./404');
+const AccountRouter = require('./account');
 const Authenticated = require('../app/middlewares/authenticated');
 const checkAdmin = require('../app/middlewares/checkAdmin');
+
 function route(app) {
     app.use('/collections', collectionsRouter);
     app.use('/returns', ReturnsRouter);
@@ -19,9 +21,10 @@ function route(app) {
     app.use('/cart', CartRouter);
     app.use('/products', ProductsRouter);
     app.use('/register', RegisterRouter);
-    app.use('/auth',AuthRouter);
+    app.use('/auth', AuthRouter);
     app.use('/me',Authenticated, checkAdmin, MeRouter);
     app.use('/404page', ErrorRouter);
+    app.use('/account',Authenticated, AccountRouter);
     app.use('/', HomeRouter);
 }
 module.exports = route;

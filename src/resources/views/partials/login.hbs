@@ -27,13 +27,17 @@
 <script>
     const login_container = document.querySelector('.container-login');
     const login_menu = document.querySelector('#login');
-    login_menu.onclick = function(e) {
-        login_container.classList.remove('disabled');
-        e.preventDefault();
-    };
     const icon_exit = document.querySelector('.fas.fa-times');
-    icon_exit.onclick=function(e){
-        login_container.classList.add('disabled');
-        e.preventDefault();
-    };
+    if(login_menu){
+        login_menu.onclick = function(e) {
+            login_container.classList.remove('disabled');
+            e.preventDefault();
+        };
+    }
+    if(icon_exit){
+        icon_exit.onclick=function(e){
+            login_container.classList.add('disabled');
+            e.preventDefault();
+        };
+    }
 </script>
