@@ -3,23 +3,23 @@ const express = require('express');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
 const { extname } = require('path');
-const app = express();
-const port = process.env.PORT || 3000;
-const route = require('./src/routes');
-const db = require('./src/config/db');
 const methodOverride = require('method-override');
 const dotenv = require('dotenv');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt');
-const sortMiddleware = require('./src/app/middlewares/sortMiddleware');
+const fetch = require('node-fetch');
+globalThis.fetch = fetch;
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const mongoose = require('mongoose');
 const flash = require('connect-flash');
-const authUtil = require('./src/util/auth');
 const cookieParser = require('cookie-parser');
+const route = require('./src/routes');
+const db = require('./src/config/db');
+const sortMiddleware = require('./src/app/middlewares/sortMiddleware');
 const inforUser = require('./src/app/middlewares/inforUser');
+const port = process.env.PORT || 3000;
+const app = express();
 
 db.connect();
 dotenv.config();
@@ -77,8 +77,11 @@ app.use((req, res, next) => {
 app.use(inforUser);
 app.use(sortMiddleware);
 app.use(flash());
+
 // * Thao tac voi cac file tinh
 app.use(express.static(path.join(__dirname, 'src/Public')));
+app.use(express.static(path.join(__dirname, 'src/lib')));
+
 // * add middleware de nhan du lieu
 app.use(
     express.urlencoded({
@@ -98,5 +101,5 @@ route(app);
 
 // * Access port
 app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`)
+    console.log(`App listening at http://localhost:${port}`);
 });

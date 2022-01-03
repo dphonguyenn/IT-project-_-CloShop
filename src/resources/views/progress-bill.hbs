@@ -1,0 +1,54 @@
+<div class="pages">
+    {{>header}}
+    <div class="main-page">
+        {{>mainproperties}}
+        <div class="main-part">
+            <a class="page-header" style="border:none" href="javascript:history.back()">
+                <i class="fas fa-caret-left"></i>TRỞ LẠI
+            </a>
+            <div class="page-content">
+                <div class="stepper-wrapper">
+                    <div class="stepper-item completed">
+                        <div class="step-counter"><i class="far fa-list-alt" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đơn hàng đã đặt</div>
+                    </div>
+                    <div class="stepper-item completed">
+                        <div class="step-counter"><i class="fas fa-money-check-alt" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đã xác nhận thông tin thanh toán</div>
+                    </div>
+                    {{#if bill.isChecked}}
+                    <div class="stepper-item completed">
+                        <div class="step-counter"><i class="fas fa-box-open" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đơn hàng đã được đóng gói</div>
+                    </div>
+                    <div class="stepper-item completed">
+                        <div class="step-counter"><i class="fas fa-truck" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đã giao cho ĐVVC</div>
+                    </div>
+                    {{else}}
+                     <div class="stepper-item">
+                        <div class="step-counter"><i class="fas fa-box-open" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đang xử lý</div>
+                    </div>
+                    <div class="stepper-item">
+                        <div class="step-counter"><i class="fas fa-truck" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đang xử lý</div>
+                    </div>
+                    {{/if}}
+                    {{#if bill.deleted}}
+                    <div class="stepper-item completed">
+                        <div class="step-counter"><i class="far fa-calendar-check" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name">Đơn hàng đã nhận</div>
+                    </div>
+                    {{else}}
+                    <div class="stepper-item">
+                        <div class="step-counter"><i class="far fa-calendar-check" style="color:whitesmoke;font-size:24px"></i></div>
+                        <div class="step-name" style="text-align:center">Đơn hàng sẽ được giao trong khoảng từ 3-7 ngày</div>
+                    </div>
+                    {{/if}}
+                </div>          
+            </div>
+        </div>
+    </div>
+    {{>footer}}
+</div>

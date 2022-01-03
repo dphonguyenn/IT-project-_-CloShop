@@ -1,6 +1,6 @@
 <header class="header">
     <a class="brand-shop" href="/">
-        <img src="https://i.postimg.cc/JzdDn2g3/output-onlinepngtools.png" alt="PT2STREETWEAR">
+        <img src="https://i.postimg.cc/x1HDJkps/image-1.png" alt="PT2STREETWEAR">
     </a>
     {{#if user.isAuthenticated}}
     <div class="content-header">
@@ -12,22 +12,22 @@
             {{#if user.user_boss}}
             <div class="dropdown-user-menu">
                 <div class="props-dropdown-user-menu">
-                    <i class="fas fa-home"></i><a href="/">Home</a>
+                    <i class="fas fa-home"></i><a href="/">Trang chủ</a>
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="far fa-address-card"></i><a href="/account/information-account/">Account Management</a>
+                    <i class="far fa-address-card"></i><a href="/account/information-account/">Quản lý tài khoản</a>
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="far fa-plus-square"></i><a href="/me/create-product">&nbsp;Create product</a>
+                    <i class="far fa-plus-square"></i><a href="/me/create-product">&nbsp;Tạo sản phẩm</a>
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="fas fa-boxes"></i><a href="/me/stored/products">My Products</a>    
+                    <i class="fas fa-boxes"></i><a href="/me/stored/products">Sản phẩm</a>    
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="far fa-clipboard"></i></i><a href=""> &nbsp;My Bill</a>    
+                    <i class="far fa-clipboard"></i></i><a href="/me/stored/bills"> &nbsp;Đơn đặt hàng</a>    
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="fas fa-money-bill-wave"></i><a href="">Revenue</a>     
+                    <i class="fas fa-money-bill-wave"></i><a href="">Doanh thu</a>     
                 </div>
                 <form action="/auth/logout" method="post">
                     <input type="submit" value="Logout">
@@ -36,13 +36,13 @@
             {{else}}
             <div class="dropdown-user-menu">
                 <div class="props-dropdown-user-menu">
-                    <i class="far fa-address-card"></i><a href="/account/information-account">Account Management</a>
+                    <i class="far fa-address-card"></i><a href="/account/information-account">Quản lý tài khoản</a>
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="fas fa-shipping-fast"></i><a href="">Order Management</a>
+                    <i class="fas fa-shipping-fast"></i><a href="/account/management-bills">Đơn hàng</a>
                 </div>
                 <div class="props-dropdown-user-menu">
-                    <i class="fas fa-shopping-cart"></i><a href="/cart">My Cart</a>    
+                    <i class="fas fa-shopping-cart"></i><a href="/cart">Giỏ hàng</a>    
                 </div>
                 <form action="/auth/logout" method="post">
                     <input type="submit" value="Logout">
@@ -55,7 +55,7 @@
     <a id="login" class="login-link" href="#">
         <i class="fas fa-user-circle"></i>
         <div>
-            <p>Login</p>
+            <p>Đăng nhập</p>
         </div>
     </a>
     {{/if}}

@@ -1,0 +1,172 @@
+<div class="me-page" >
+    {{>me-header }}
+    <div class="me-page-main">
+        <div
+            class="main-part"
+            style="min-height:200px; margin-left:0"
+        >
+            <h2
+                class="page-header"
+                style="text-align :center"
+            >
+                Thanh Toán
+            </h2>
+            <div class="page-content">
+                <form
+                    action="/cart/confirm-payment"
+                    method="post"
+                    style="margin:40px 100px;"
+                >
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="header-payment-part">
+                                THÔNG TIN KHÁCH HÀNG
+                            </h5>
+                            <div class="details-payment-part">
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Họ & Tên</p>
+                                    <input
+                                        type="text"
+                                        name="fullname"
+                                        value="{{bill.fullname}}"
+                                        class="input-text"
+                                        disabled
+                                    >
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Địa Chỉ</p>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        value="{{bill.address}}"
+                                        class="input-text"
+                                        disabled
+                                    >
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Email</p>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        value="{{bill.email}}"
+                                        class="input-text"
+                                        disabled
+                                    >
+                                </div>
+                                <div
+                                    class="part-infor-buyer"
+                                    style="display:flex;justify-content:space-between"
+                                >
+                                    <div style="flex:1;">
+                                        <p class="tag-p">Số Điện Thoại</p>
+                                        <input
+                                            type="text"
+                                            name="phone"
+                                            value="{{bill.phone}}"
+                                            class="input-text"
+                                            disabled
+                                        >
+                                    </div>
+                                    <div style="flex:1;padding-left:12px">
+                                        <p class="tag-p">Tỉnh Thành Phố</p>
+                                        <select
+                                            name="city"
+                                            id="address-lv1"                                  
+                                            class="input-select"
+                                            disabled
+                                        >
+                                        <option>{{bill.city}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div
+                                    class="part-infor-buyer"
+                                    style="display:flex;justify-content:space-between"
+                                >
+                                    <div style="flex:1;">
+                                        <p class="tag-p">Quận/Huyện</p>
+                                        <select
+                                            name="district"
+                                            id="address-lv2"
+                                            class="input-select"
+                                            disabled
+                                        >
+                                        <option>{{bill.district}}</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1;padding-left:12px;">
+                                        <p class="tag-p">Phường/Xã</p>
+                                        <select
+                                            name="ward"
+                                            id="address-lv3"
+                                            class="input-select"
+                                            disabled
+                                        >
+                                        <option>{{bill.ward}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Ghi chú</p>
+                                    <textarea
+                                        type="text"
+                                        name="note"
+                                        class="input-text"
+                                        
+                                        style=""
+                                        disabled
+                                    >{{bill.note}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="header-payment-part">
+                                Chi tiết đơn hàng
+                            </h5>
+                            <div class="details-payment-part">
+                                <div
+                                    class="details-prd"
+                                    style="display: flex;justify-content:space-between"
+                                >
+                                    <div>
+                                        {{#each bill.products}}                             
+                                        <p>
+                                            "{{this}}"
+                                        </p>
+                                        {{/each}}
+                                    </div>
+                                    <div>
+                                        {{#each bill.quantity}}
+                                        <p>
+                                            x{{this}}
+                                        </p>
+                                        {{/each}}
+                                    </div>
+                                    {{!-- <div style="text-align:end">
+                                        {{#each bill.cost}}
+                                        <p>
+                                            {{this}}
+                                        </p>
+                                        {{/each}}
+                                    </div> --}}
+                                </div>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid #9ECBF7;border-bottom:1px solid #9ECBF7">
+                                    <p>Phí vận chuyển</p>
+                                    <p>0 Đ</p>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;">
+                                    <p>Tổng cộng</p>
+                                    <p style="font-size: 20px;font-weight:600;color:#4b77be">{{bill.totalPrice}} Đ</p>
+                                    <input type="hidden" name="totalPrice" value="{{bill.totalPrice}}">
+                                </div>
+                            </div>
+                            <div style="display: flex;justify-content:end">
+                                <a href="/me/stored/bills" class="btn-x btn-strong-blue" style="border-radius:4px">Quay lại</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

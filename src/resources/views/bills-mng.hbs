@@ -1,0 +1,68 @@
+<div class="pages">
+    {{>header}}
+    <div class="main-page">
+        {{>mainproperties}}
+        <div class="main-part">
+            <h2 class="page-header" style="border: none;">
+                Đơn hàng của tôi
+            </h2>
+            <div class="page-content">
+                {{#if bills}}
+                <table class="table mt-4" style="font-size:15px">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <p>Mã đơn hàng</p>
+                            </th>
+                            <th scope="col" style="text-align:center">
+                                <p>
+                                    Ngày tạo đơn
+                                </p>  
+                            </th>
+                            <th scope="col" width="150" style="text-align:center">
+                                <p>
+                                    Giá trị đơn hàng
+                                </p>
+                            </th>
+                            <th scope="col" width="150">
+                                <p>
+                                    Trạng thái
+                                </p>
+                            </th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each bills}}
+                        <tr>
+                            <td><a href="/account/management-bills/{{this._id}}">{{this._id}}</a></td>
+                            <td style="text-align:center">{{this.createdAt}}</td>
+                            <td style="text-align:center">{{this.totalPrice}}</td>
+                            {{#if this.isChecked}}
+                            <td>
+                                <p style="color: cornflowerblue;font-style: italic">Đang vận chuyển</p>
+                            </td>
+                            {{else}}
+                            <td>
+                                <p style="color:#6c7a89;font-style: italic">
+                                    Đang xử lý
+                                </p>
+                            </td> 
+                            {{/if}}
+                            <td>
+                                <a href="/account/management-bills/{{this._id}}">
+                                    Xem chi tiết
+                                </a>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{else}}
+                <p>Bạn chưa thực hiện bất kì đơn hàng nào.</p>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+     {{>footer}}
+</div>

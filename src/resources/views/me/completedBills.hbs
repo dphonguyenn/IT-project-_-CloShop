@@ -1,9 +1,9 @@
 <div class="me-page" >
     {{>me-header }}
-    <form class="me-page-main" name="container-form" method="POST" action="/me/products/handle-actions-form">
+    <form class="me-page-main" name="container-form" method="POST" action="/me/bills/handle-actions-form">
         <div>
-            <h3>Thùng rác ({{countDelete}})</h3>
-            <a href="/me/stored/products">Sản phẩm của bạn <i class="fas fa-list-ul"></i>({{countProduct}})</a>
+            <h3>Đơn hàng đã hoàn thành <i class="far fa-clipboard"></i>({{countCompletedBill}})</h3>
+            <a href="/me/stored/bills">Đơn hàng của khách ({{countBill}})</a>
             <div class="mt-4 d-flex align-items-center">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
@@ -24,42 +24,42 @@
             <thead>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">Thứ tự</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col">Giá</th>
-                    <th scope="col">Loại hàng</th>
-                    {{!-- <th scope="col">Màu</th> --}}
-                    {{!-- <th scope="col">Quantity</th> --}}
-                    <th scope="col">Thời gian xóa</th>
+                    <th scope="col">Mã đơn hàng</th>
+                    <th scope="col" width="200">Tên khách hàng</th>
+                    <th scope="col" width="200">Địa chỉ</th>
+                    <th scope="col" width="150">Đã thanh toán</th>
+                    <th scope="col">Thời gian hoàn thành</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                {{#each products}}
+                {{#each bills}}
                 <tr>
-                     <td>
+                    <td>
                         <div class="form-check">
-                            <input class="form-check-input" id="checkbox" type="checkbox" name="productId[]" value="{{this._id}}" >
+                            <input class="form-check-input" id="checkbox" type="checkbox" name="billId[]" value="{{this._id}}" >
                         </div>
                     </td>
-                    {{!-- sum(a,b) -> sum(@index,1) (@index: chi muc array trong hbs--}}
-                    <th scope="row">{{sum @index 1}}</th>
-                    <td>{{this.name}}</td>
-                    <td>{{this.price}}</td>
-                    <td>{{this.type}}</td>
-                    {{!-- <td>{{this.color}}</td> --}}
+                    <th scope="row">
+                        <a href="">
+                            {{this._id}}
+                        </a>    
+                    </th>
+                    <td>{{this.fullname}}</td>
+                    <td>{{this.address}}</td>
+                    <td>{{this.totalPrice}}</td>
                     <td>{{this.deletedAt}}</td>
                     <td>
                         <a href="" class="btn btn-link btn-restore" data-id="{{this._id}}">Khôi phục</a>
-                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Xóa vĩnh viễn</a>
+                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-bill-modal">Xóa vĩnh viễn</a>
                     </td>
                 </tr>
                 {{!-- Khi khong co du lieu --}}
                 {{else}} 
                 <tr>
                     <td colspan="9">
-                        Thùng rác của bạn rỗng.
-                        <a href="/me/stored/products">Quay lại kho sản phẩm?</a>
+                        Chưa có đơn hàng nào được hoàn thành. Bạn muốn
+                        <a href="/me/stored/bills">quay lại danh sách đơn hàng không?</a>
                     </td>
                 </tr>
                 {{/each}}
@@ -69,73 +69,78 @@
 </div>
 
 {{!-- confirm delete  --}}
-<div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
+<div id="delete-bill-modal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Xóa sản phẩm</h5>
+        <h5 class="modal-title">Xóa đơn hàng</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Hành động này không thể khôi phục. Bạn có muốn xóa vĩnh viễn sản phẩm?</p>
+        <p>Hành động này không thể khôi phục. Bạn có chắc muốn xóa vĩnh viên đơn hàng này?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Xóa</button>
+        <button id="btn-delete-bill-modal" type="button" class="btn btn-danger">Xóa</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>
 </div>
 
-<form class="form-delete" method="POST" name="delete-product-form"></form>
+<form class="form-delete" method="POST" name="delete-bill-form"></form>
 <form class="form-restore" method="POST" name="restore-product-form"></form>
 <script>
     document.addEventListener("DOMContentLoaded", function(e) {
-        var productId;
+        var billId;
         var restoreBtn;
-        var deleteForm = document.forms['delete-product-form'];
+        var deleteForm = document.forms['delete-bill-form'];
         var restoreForm = document.forms['restore-product-form']
-        var deleteBtn = $('#btn-delete-product-modal');
+        var deleteBtn = $('#btn-delete-bill-modal');
         var checkboxAll = $('#checkbox-all');
-        var checkboxChild = $('input[name="productId[]"]');
+        var checkbox = $('input[name="billId[]"]');
         var restoreBtn = $('.btn-restore');
         var actionsBtn = $('#do-actions-btn');
 
-        $('#delete-product-modal').on('show.bs.modal', function (event) {
+        $('#delete-bill-modal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget);
             var id = button.data('id');
             console.log(id);
-            productId = button.data('id');
+            billId = button.data('id');
         });
 
         restoreBtn.click(function (event) {
             event.preventDefault();
-            var productID = $(this).data('id');
-            restoreForm.action = '/me/products/' + productID + '/restore?_method=PATCH';
+            var billId = $(this).data('id');
+            restoreForm.action = '/me/bills/' + billId + '/restore?_method=PATCH';
             restoreForm.submit();
         });
 
+        // show confirm modal
         deleteBtn.click(function (event) {
-            deleteForm.action = '/me/products/' + productId + '/hard-delete?_method=DELETE';
+            deleteForm.action = '/me/bills/' + billId + '/hard-delete?_method=DELETE';
             deleteForm.submit();
         });
 
-        checkboxAll.on('change',function(event) {
-            var isChecked = $(this).prop('checked');
-            checkboxChild.prop('checked',isChecked);
+        checkboxAll.change(function(event) {
+            if($(this).prop('checked')) {
+                checkbox.prop('checked', true);
+            }
+            else {
+                checkbox.prop('checked',false);
+            }
             enableExecutedBtn();
         });
 
-        checkboxChild.change(function (event) {
-            var isCheckedAll = checkboxChild.length === $('input[name="productId[]"]:checked').length;
+        checkbox.change(function (event) {
+            var isCheckedAll = checkbox.length === $('input[name="billId[]"]:checked').length;
             checkboxAll.prop('checked',isCheckedAll);
             enableExecutedBtn();
         })
 
         function enableExecutedBtn(){
-            var isChecked = $('input[name="productId[]"]:checked').length;
+            var isChecked = $('input[name="billId[]"]:checked').length;
             if(isChecked > 0){
                 actionsBtn.attr('disabled',false);
             }

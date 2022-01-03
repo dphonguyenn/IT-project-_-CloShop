@@ -9,10 +9,5 @@ class AuthController {
         req.session.destroy();
         res.redirect('/');
     }
-    // *[POST] /auth/logout-me
-    logoutMe(req, res, next) {
-        req.session.destroy();
-        res.redirect('/');
-    }
 }
 module.exports = new AuthController();

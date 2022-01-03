@@ -2,69 +2,273 @@
     {{>header}}
     <div class="main-page">
         {{>mainproperties}}
-        <div class="main-part" style="min-height:200px;">
-            <h2 class="page-header">
-                GIỎ HÀNG
+        <div
+            class="main-part"
+            style="min-height:200px;"
+        >
+            <h2
+                class="page-header"
+                style="text-align :center"
+            >
+                Thanh Toán
             </h2>
-            <div class="page-content page-cart">
-                {{#if products}}
-                <table class="table mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col" style="border-top:0"></th>
-                            <th scope="col" style="border-top:0">
-                                <h4>Sản phẩm</h4>
-                            </th>
-                            <th scope="col" style="border-top:0">
-                                <h4 style="text-align:center">Số lượng</h4>
-                            </th>
-                            <th scope="col" style="border-top:0">
-                                <h4 style="text-align:end">Thành tiền:</h4>
-                            </th>
-                            <th scope="col" style="border-top:0">
-                                <h4 style="color:rgba(75, 119, 190, 1)">{{totalPrice}} VNĐ</h4>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {{#each products}}
-                        <tr>
-                            <td>
-                                <a href="/products/{{this.item.id_product}}">
-                                    <img class="cart-img-prd" src="{{this.item.img1}}" alt="{{this.name}}">
-                                </a>
-                            </td>
-                            <td>
-                                <a href="/products/{{this.item.id_product}}" class="taga-nameprd-cart">
-                                    {{this.item.name}}
-                                </a>
-                            </td>
-                            <td style="text-align:center">
-                                <a href="/products/subtract-to-cart/{{this.item._id}}" class="inc-dec-prd-cart"> - </a>
-                                {{this.qty}}
-                                <a href="/products/add-to-cart/{{this.item._id}}" class="inc-dec-prd-cart"> + </a>
-                                <br>
-                                <a href="" class="remove-prd-cart" data-id="{{this.item._id}}" data-toggle="modal" data-target="#delete-product-modal">Xóa</a>
-                            </td>
-                            <td></td>
-                            <td>{{this.price}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-                <div class="row flex-row-reverse">
-                    <a href="/cart/checkout" class="btn-x btn-paying">Thanh toán</a>
-                    <a href="/collections/shirt" class="btn-x btn-buy-more">Mua thêm sản phẩm</a>
-                </div>
-                {{else}}
-                <div class="row flex-column align-content-center empty-cart">                   
-                    <img class="empty-cart-img" src="https://cdn.dribbble.com/users/204955/screenshots/4930541/emptycart.png" alt="empty-cart">                    
-                    <p>Giỏ hàng chưa có sản phẩm nào </p>                  
-                    <a href="/collections/shirt" class="non-prd-btn">Mua sắm ngay</a>                    
-                </div>
-               {{/if}}
+            <div class="page-content">
+                <form
+                    action="/cart/confirm-payment"
+                    method="post"
+                    style="margin:40px 100px;"
+                >
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="header-payment-part">
+                                THÔNG TIN KHÁCH HÀNG
+                            </h5>
+                            <div class="details-payment-part">
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Họ & Tên</p>
+                                    <input
+                                        type="text"
+                                        name="fullname"
+                                        value="{{user.user_fullname}}"
+                                        class="input-text"
+                                        required
+                                    >
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Địa Chỉ</p>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        value="{{user.user_address}}"
+                                        class="input-text"
+                                        required
+                                    >
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Email</p>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        value="{{user.user_email}}"
+                                        class="input-text"
+                                        required
+                                    >
+                                </div>
+                                <div
+                                    class="part-infor-buyer"
+                                    style="display:flex;justify-content:space-between"
+                                >
+                                    <div style="flex:1;">
+                                        <p class="tag-p">Số Điện Thoại</p>
+                                        <input
+                                            type="text"
+                                            name="phone"
+                                            value="{{user.user_phone}}"
+                                            class="input-text"
+                                            required                                        >
+                                    </div>
+                                    <div style="flex:1;padding-left:12px">
+                                        <p class="tag-p">Tỉnh Thành Phố</p>
+                                        <select
+                                            name="city"
+                                            id="address-lv1"
+                                            onchange="createDistrict();"
+                                            class="input-select"
+                                            required
+                                        >
+                                        </select>
+                                    </div>
+                                </div>
+                                <div
+                                    class="part-infor-buyer"
+                                    style="display:flex;justify-content:space-between"
+                                >
+                                    <div style="flex:1;">
+                                        <p class="tag-p">Quận/Huyện</p>
+                                        <select
+                                            name="district"
+                                            id="address-lv2"
+                                            onchange="createWard();"
+                                            class="input-select"
+                                            disabled
+                                            required
+                                        >
+                                            <option>Chọn Quận/Huyện</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1;padding-left:12px;">
+                                        <p class="tag-p">Phường/Xã</p>
+                                        <select
+                                            name="ward"
+                                            id="address-lv3"
+                                            class="input-select"
+                                            disabled
+                                            required
+                                        >
+                                            <option>Chọn Phường/Xã</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="part-infor-buyer">
+                                    <p class="tag-p">Ghi chú</p>
+                                    <textarea
+                                        type="text"
+                                        name="note"
+                                        class="input-text"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <h5 class="header-payment-part">
+                                Chi tiết đơn hàng
+                            </h5>
+                            <div class="details-payment-part">
+                                <div
+                                    class="details-prd"
+                                    style="display: flex;justify-content:space-between"
+                                >
+                                    <div>
+                                        {{#each products}}                             
+                                        <p>
+                                            "{{this.item.name}}"
+                                        </p>
+                                        <input type="hidden" name="products" value="{{this.item.name}}">
+                                        {{/each}}
+                                    </div>
+                                    <div>
+                                        {{#each products}}
+                                        <p>
+                                            x{{this.qty}}
+                                        </p>
+                                        <input type="hidden" name="quantity" value="{{this.qty}}">
+                                        {{/each}}
+                                    </div>
+                                    <div style="text-align:end">
+                                        {{#each products}}
+                                        <p>
+                                            {{this.price}}
+                                        </p>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;border-top:1px solid #9ECBF7;border-bottom:1px solid #9ECBF7">
+                                    <p>Phí vận chuyển</p>
+                                    <p>0 Đ</p>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;">
+                                    <p>Tổng cộng</p>
+                                    <p style="font-size: 20px;font-weight:600;color:#4b77be">{{totalPrice}} Đ</p>
+                                    <input type="hidden" name="totalPrice" value="{{totalPrice}}">
+                                </div>
+                                <div class="radio">
+                                    <input
+                                        type="radio"
+                                        id="PAYMENT01"
+                                        name="payments"
+                                        value="Thanh toán khi nhận hàng"
+                                        required
+                                    >
+                                    <label for="PAYMENT01">Thanh toán khi nhận hàng</label><br>
+                                    <input
+                                        type="radio"
+                                        id="PAYMENT02"
+                                        name="payments"
+                                        value="Thanh toán chuyển khoảng"
+                                    >
+                                    <label for="PAYMENT02">Thanh toán chuyển khoảng</label> <br>
+                                    <input
+                                        type="radio"
+                                        id="PAYING-3PAYMENT03"
+                                        name="payments"
+                                        value="Thanh toán VNPAY"
+                                    >
+                                    <label for="PAYMENT03">Thanh toán online qua VNPAY</label><br>
+                                </div>
+                                <div style="border-top:1px solid #9ECBF7;margin-bottom:12px">
+                                    <input type="checkbox" required>
+                                    <span>Tôi đồng ý với các chính sách mua hàng của PT2STREET</span>
+                                </div>
+                                <div style="display: flex;justify-content:space-between">
+                                    <button type="submit" class="btn-x btn-strong-blue">Đặt hàng ngay</button>
+                                    <a href="/cart" class="btn-x btn-light-blue">Quay lại giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     {{>footer}}
 </div>
+<script>
+    const selectAddressLv1 = document.getElementById('address-lv1');
+    const selectAddressLv2 = document.getElementById('address-lv2');
+    const selectAddressLv3 = document.getElementById('address-lv3');
+    var cities = [];
+
+    fetch('https://provinces.open-api.vn/api/?depth=3')
+        .then(res => res.json())
+        .then(data => {
+            cities.push(...data);
+            let output = `<option value="" selected>Chọn Tỉnh/Thành phố</option>`;
+            data.forEach(city => {
+                output += `<option value="${city.name}">${city.name}</option>`
+            });
+            selectAddressLv1.innerHTML = output;
+        })
+        .catch(err => {
+            console.error(err);
+        });
+
+    function createDistrict() {
+        let cityName = selectAddressLv1.value;
+        for (var i = 0; i < cities.length; i++) {
+            if (cityName == cities[i].name) {
+                updateDistrict(cities[i]);
+            }
+            if (cityName == "") {
+                selectAddressLv2.innerHTML = `<option value="" selected>Chọn Quận/Huyện</option>`;
+            }
+        }
+    }
+
+    function updateDistrict(city) {
+        let districts = [];
+        let output = `<option value="" selected>Chọn Quận/Huyện</option>`;
+        let output1 = `<option value="" selected>Chọn Phường/Xã</option>`;
+        selectAddressLv2.disabled = false;
+        districts.push(...city.districts);
+        for (var i = 0; i < districts.length; i++) {
+            output += `<option value="${districts[i].name}">${districts[i].name}</option>`;
+        };
+        selectAddressLv2.innerHTML = output;
+        selectAddressLv3.innerHTML = output1;
+    }
+
+    function createWard() {
+        let districtName = selectAddressLv2.value;
+        for(var i=0;i<cities.length;i++) {
+            for(var j=0;j<cities[i].districts.length;j++) {
+                if(districtName == cities[i].districts[j].name) {
+                    updateWard(cities[i].districts[j]);
+                }
+                if(districtName == ""){
+                    selectAddressLv3.innerHTML = `<option value="" selected>Chọn Phường/Xã</option>`;
+                }
+            }
+        }
+    }
+
+    function updateWard(district){
+        let wards = [];
+        let output = `<option value="" selected>Chọn Phường/Xã</option>`;
+        selectAddressLv3.disabled = false;
+        wards.push(...district.wards);
+        for (var i = 0; i < wards.length; i++) {
+            output += `<option value="${wards[i].name}">${wards[i].name}</option>`;
+        };
+        selectAddressLv3.innerHTML = output;
+    }
+</script>

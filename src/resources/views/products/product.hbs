@@ -5,9 +5,9 @@
         <div class="main-part">
             {{#if message.message-add-success}}
             <div class="flash-message flash-success">
-                <i class="fas fa-check-circle"></i>Add to cart successfully!
+                <i class="fas fa-check-circle"></i>Thêm vào giỏ hàng thành công!
                 <li>
-                    <a href="/cart">Paying </a>or <a href="/collections/{{collection.type}}"> continuous shopping?</a>
+                    <a href="/cart">Thanh toán</a> / <a href="/collections/{{collection.type}}"> tiếp tục mua sắm?</a>
                 </li>
             </div>
             {{else}}
@@ -54,7 +54,7 @@
                         <div class="row">
                             <div class="product-price">
                                 <h4>
-                                    {{collection.price}} đ
+                                    {{collection.price}} ₫
                                 </h4>
                                 <p>
                                     Color: {{collection.color}}

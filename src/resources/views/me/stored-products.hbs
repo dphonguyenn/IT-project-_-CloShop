@@ -1,57 +1,67 @@
-<form class="me-page" name="container-form" method="POST" action="/me/products/handle-actions-form">
+<div class="me-page">
     {{>me-header }}
-    <div class="me-page-main">
+    <form class="me-page-main" name="container-form" method="POST" action="/me/products/handle-actions-form">
         <div>
-            <h3>Your products ({{countProduct}})</h3>
-            <a href="/me/stored/trash/products">Recycle Bin <i class="fas fa-trash-alt"></i>({{countDelete}})</a>
+            <h3>Sản phẩm của bạn ({{countProduct}})</h3>
+            <a href="/me/stored/trash/products">Thùng rác <i class="fas fa-trash-alt"></i>({{countDelete}})</a>
             <div class="mt-4 d-flex align-items-center">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
                     <label class="form-check-label" for="checkbox-all">
-                        Select All
+                        Chọn tất cả
                     </label>
                 </div>
                 <div class="form-group form-control-sm checkbox-selectAll-options" style="margin-bottom:0;">    
                     <select class="form-control" name="action">
                     {{!-- <option value="">Actions</option> --}}
-                    <option value="delete">Delete</option>
+                    <option value="delete">Xóa</option>
                     </select>
                 </div>
-                <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Apply</button>
+                <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Áp dụng</button>
             </div>
         </div>
         <table class="table mt-4">
             <thead>
                 <tr>
                     <th scope="col"></th>
-                    <th scope="col">Order</th>
+                    <th scope="col" width="100" style="text-align:center"><p>Thứ tự</p></th>
                     <th scope="col">
-                        Name
-                        {{{sortable 'name' _sort}}}
+                       <p>
+                           Tên sản phẩm {{{sortable 'name' _sort}}}
+                       </p>  
+                        
                         {{!-- truyen parameter len url --}}
                     </th>
                     <th scope="col">
-                        Price Product
-                        {{{sortable 'price' _sort}}}
+                        <p>
+                            Giá
+                            {{{sortable 'price' _sort}}}
+                        </p>
                     </th>
                     <th scope="col">
-                        Type
-                        {{{sortable 'type' _sort}}}
+                        <p>
+                            Loại hàng
+                            {{!-- {{{sortable 'type' _sort}}} --}}
+                        </p>
                     </th>
-                    <th scope="col">
-                        Color
+                    {{!-- <th scope="col">
+                        Màu sắc
                         {{{sortable 'color' _sort}}}
-                    </th>                    
+                    </th>                     --}}
                     {{!-- <th scope="col">Quantity</th> --}}
                     <th scope="col">
-                        Created Time
-                        {{{sortable 'createdAt' _sort}}}
+                        <p>
+                            Thời gian tạo
+                            {{{sortable 'createdAt' _sort}}}
+                        </p>
                     </th>
                     <th scope="col">
-                        Updated Time
-                        {{{sortable 'updatedAt' _sort}}}
+                        <p>
+                            Thời gian sửa
+                            {{{sortable 'updatedAt' _sort}}}
+                        </p>
                     </th>
-                    <th></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -63,48 +73,48 @@
                             <input class="form-check-input" id="checkbox" type="checkbox" name="productId[]" value="{{this._id}}" >
                         </div>
                     </td>
-                    <th scope="row">{{sum @index 1}}</th>
+                    <th scope="row" style="text-align:center">{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.price}}</td>
                     <td>{{this.type}}</td>
-                    <td>{{this.color}}</td>
+                    {{!-- <td>{{this.color}}</td> --}}
                     <td>{{this.createdAt}}</td>
                     <td>{{this.updatedAt}}</td>
                     <td>
-                        <a href="/me/stored/{{this._id}}/edit" class="btn btn-link">Update</a>
-                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Delete</a>
+                        <a href="/me/stored/{{this._id}}/edit" class="btn btn-link">Cập nhật</a>
+                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-product-modal">Xóa</a>
                     </td>
                 </tr>
                 {{!-- Khi khong co du lieu --}}
                 {{else}} 
                 <tr>
                     <td colspan="9">
-                        You haven't posted product yet. 
-                        <a href="/me/create-product">Create product?</a>
+                        Cửa hàng của bạn chưa có sản phẩm nào 
+                        <a href="/me/create-product">Tạo sản phẩm?</a>
                     </td>
                 </tr>
                 {{/each}}
             </tbody>
         </table>
-    </div>
-</form>
+    </form>
+</div>
 
 {{!-- confirm delete  --}}
 <div id="delete-product-modal" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Delete Product</h5>
+        <h5 class="modal-title">Xóa sản phẩm</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure ?</p>
+        <p>Bạn chắc chứ ?</p>
       </div>
       <div class="modal-footer">
-        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Delete</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-delete-product-modal" type="button" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>

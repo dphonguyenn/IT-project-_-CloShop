@@ -8,5 +8,4 @@ router.post('/login', passport.authenticate('local', {
     failureFlash:'Wrong username or password'
 }), AuthController.login);
 router.post('/logout', AuthController.logout);
-router.post('/logout-me', AuthController.logoutMe);
 module.exports = router;

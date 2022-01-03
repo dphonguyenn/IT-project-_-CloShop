@@ -1,5 +1,5 @@
 const collections = require('../model/collections/collections');
-const { multipleMongooseToObject,mongooseToObject } = require('../../util/mongoose');
+const { multipleMongooseToObject, mongooseToObject } = require('../../util/mongoose');
 class CollectionsController {
     // * [GET] /collections/:slug 
     show(req, res, next) {

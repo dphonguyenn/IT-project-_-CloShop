@@ -8,7 +8,7 @@
             <div class="flash-message flash-success">
                 <i class="fas fa-check-circle"></i>{{messages.message-success}}
                 <li id="toast-message-signin">
-                    <a href="#">Sign in now</a>
+                    <a href="#">Đăng nhập ngay</a>
                 </li>
             </div>
             {{else}}
@@ -23,60 +23,60 @@
             {{/if}}
             <div class="main__register">
                 <form action="/register/post-register" method="POST" class="form" id="register_form">
-                    <h3 class="form__heading">Registration</h3>
+                    <h3 class="form__heading">Đăng Kí</h3>
                     <p class="form__subheading">People will stare, make it worth their while.</p>
                     <div class="spacer"></div>
                     <div class="form__group">
-                        <label for="fullname" class="form__group__label">Full name</label>
+                        <label for="fullname" class="form__group__label">Tên Đầy Đủ</label>
                         <input id="fullname" name="fullname" rules="required" type="text" class="form__group__input"
-                            placeholder="VD: Duy Phong">
+                            placeholder="Họ và tên">
                         <span class="form__group__message"></span>
                     </div>
 
                     <div class="form__group">
-                        <label for="username" class="form__group__label">Username</label>
+                        <label for="username" class="form__group__label">Tên Đăng Nhập</label>
                         <input id="username" name="username" rules="required" type="text" class="form__group__input"
-                            placeholder="VD: duyphongnguyen">
+                            placeholder="Tên đăng nhập">
                         <span class="form__group__message"></span>
                     </div>
 
 
                     <div class="form__group">
-                        <label for="password" class="form__group__label">Password</label>
+                        <label for="password" class="form__group__label">Mật Khẩu</label>
                         <input id="password" name="password" rules="required" type="password" class="form__group__input"
-                            placeholder="Your password....">
+                            placeholder="Mật khẩu">
                         <span class="message_default"></span>
                         <span class="form__group__message"></span>
                     </div>
 
                     <div class="form__group">
-                        <label for="repass" class="form__group__label">Re-Password</label>
+                        <label for="repass" class="form__group__label">Nhập Lại Mật Khẩu</label>
                         <input id="repass" name="repass" rules="required|repass" type="password" class="form__group__input"
-                            placeholder="Enter repassword....">
+                            placeholder="Nhập lại mật khẩu">
                         <span class="form__group__message"></span>
                     </div>
 
                     <div class="form__group">
                         <label for="email" class="form__group__label">Email</label>
                         <input id="email" name="email" rules="required|email" type="email" class="form__group__input"
-                            placeholder="VD: phchmessibar326@gmail.com">
+                            placeholder="Email">
                         <span class="form__group__message"></span>
                     </div>
 
                     <div class="form__group">
-                        <label for="phone" class="form__group__label">Phone</label>
+                        <label for="phone" class="form__group__label">Số Điện Thoại</label>
                         <input id="phone" name="phone" rules="required" type="text" class="form__group__input"
-                            placeholder="VD: 0947443064">
+                            placeholder="Số điện thoại">
                         <span class="form__group__message"></span>
                     </div>
 
                     <div class="form__group">
-                        <label for="address" class="form__group__label">Address</label>
+                        <label for="address" class="form__group__label">Địa Chỉ</label>
                         <input id="address" name="address" rules="required" type="text" class="form__group__input"
-                            placeholder="VD: San z1, TP Quang Ngai">
+                            placeholder="Địa chỉ">
                         <span class="form__group__message"></span>
                     </div>
-                    <button type="submit" class="form__btn">Register</button>
+                    <button type="submit" class="form__btn">Đăng kí</button>
                 </form>
             </div>
         </div>
@@ -115,21 +115,21 @@
         var formRules = {};
         var validateRules = {
             required: function (value) {
-                return value ? undefined : 'Please provide information';
+                return value ? undefined : 'Ô này không được để trống';
             },
             email: function (value) {
                 // ? phuong thuc test() dung de kiem tra xem trong mot chuoi co chua chuoi con khop voi mo hinh chuoi hay khong
                 // todo: regex.test(_string)
                 var regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return regex.test(value) ? undefined : 'Your email is incorrect';
+                return regex.test(value) ? undefined : 'Email của bạn không đúng';
             },
             strongPass: function (value) {
                 var passStrong = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,99}$/;
-                return passStrong.test(value) ? undefined : 'Your password is not strong enough, please re-enter your password';
+                return passStrong.test(value) ? undefined : 'Mật khẩu của bạn không đủ mạnh';
             },
             repass: function (value) {
                 var pass_value = document.querySelector('#register_form #pass');
-                return value === pass_value.value ? undefined : 'The password does not match, please re-enter';
+                return value === pass_value.value ? undefined : 'Mật khẩu không khớp';
             }
         }
 

@@ -6,13 +6,13 @@ class RegisterController {
         users.findOne({ username: req.body.username })
             .then(data => {
                 if (data) {
-                    req.flash('message-error','Account has already existed!');
+                    req.flash('message-error','Tài khoản đã tồn tại!');
                     res.redirect('/register');
                 }
                 else {
-                    req.flash('message-success','Sign up success!');
+                    req.flash('message-success','Bạn đã đăng ký thành công!');
                     user.save()
-                        .then(() => res.redirect('/register'))
+                        .then(() => res.redirect('back'))
                         .catch(next)
                 }
             })

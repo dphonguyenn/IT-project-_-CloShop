@@ -1,0 +1,202 @@
+<div class="me-page" >
+    {{>me-header }}
+    <form class="me-page-main" name="container-form" method="POST" action="/me/bills/handle-actions-form">
+        <div>
+            <h3>Đơn hàng của khách ({{countBill}})</h3>
+            <a href="/me/stored/bill-completed">Đơn hàng đã hoàn thành <i class="far fa-clipboard"></i>({{countCompletedBill}})</a>
+            <div class="mt-4 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkbox-all" >
+                    <label class="form-check-label" for="checkbox-all">
+                        Chọn tất cả
+                    </label>
+                </div>
+                <div class="form-group form-control-sm checkbox-selectAll-options" style="margin-bottom:0;">    
+                    <select class="form-control" name="action">
+                    {{!-- <option value="">Actions</option> --}}
+                    <option value="checked">Checked đơn</option>
+                    </select>
+                </div>
+                <button id="do-actions-btn" class="btn btn-primary btn-sm" style="padding:7px;" disabled>Áp dụng</button>
+            </div>
+        </div>
+        <table class="table mt-4" style="font-size:15px">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"><p>Mã đơn hàng</p></th>
+                    <th scope="col">
+                        <p>
+                            Ngày tạo đơn
+                        </p>  
+                        
+                        {{!-- truyen parameter len url --}}
+                    </th>
+                    <th scope="col" width="200">
+                        <p>
+                            Tên khách hàng
+                        </p>
+                    </th>
+                    <th scope="col">
+                        <p>
+                            Địa chỉ
+                        </p>
+                    </th>
+                    <th scope="col" width="100">
+                        <p>
+                            Trạng thái
+                        </p>
+                    </th>
+                    <th scope="col" width="130">
+                        <p>
+                            Thanh toán
+                        </p>
+                    </th>
+                    <th scope="col" width="130">
+                        <p>
+                            Khách phải trả
+                        </p>
+                    </th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each bills}}
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" id="checkbox" type="checkbox" name="billId[]" value="{{this._id}}" >
+                        </div>
+                    </td>
+                    <th scope="row"><a href="/me/bills/{{this._id}}/detailed-bill">{{this._id}}</a></th>
+                    <td>{{this.createdAt}}</td>
+                    <td>{{this.fullname}}</td>
+                    <td>{{this.address}}</td>
+                    {{#if this.isChecked}}
+                    <td style="text-align:center">
+                        <i class="fas fa-clipboard-check" style="color:#2ecc71;font-size:32px"></i>
+                    </td>
+                    {{else}}
+                    <td style="color:#f22613">Chưa xử lý</td> 
+                    {{/if}}
+                    <td>{{this.payment}}</td>
+                    <td>₫{{this.totalPrice}}</td>
+                    <td>
+                        {{#if isChecked}}
+                        <p style="font-style: italic; color: #6c7a89; padding:6px 12px; margin-bottom: 0;">Đã vận chuyển</p>
+                        {{else}}
+                        <button id="btn-checked" name="{{this._id}}" type="button" class="btn btn-success" style="width: 80%;">Chuyển hàng</button>
+                        {{/if}}
+                        <a href="" id="link-completed" class="btn btn-link" name="{{this._id}}">Hoàn thành đơn</a>
+                        <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-bill-modal">Xóa</a>
+                    </td>
+                </tr>
+                {{!-- Khi khong co du lieu --}}
+                {{else}} 
+                <tr>
+                    <td colspan="9">
+                        Cửa hàng của bạn chưa có đơn hàng nào :(
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+{{!-- confirm delete  --}}
+<div id="delete-bill-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa đơn hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Hành động này không thể khôi phục. Bạn có chắc muốn xóa vĩnh viên đơn hàng này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-bill-modal" type="button" class="btn btn-danger">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- hidden delete form --}}
+<form class="form-delete" method="POST" name="delete-bill-form"></form>
+<form class="form-update-checked" method="POST" name="update-checked-form" style="display: none"></form>
+<form class="form-soft-delete" method="POST" name="completed-form" style="display: none"></form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(e) {
+        var billId;
+        var linkCompleted = document.getElementById('link-completed');
+        var softDeleteForm = document.forms['completed-form'];
+        var deleteForm = document.forms['delete-bill-form'];
+        var checkedForm = document.forms['update-checked-form'];
+        var btnDelete = document.getElementById('btn-delete-bill-modal');
+        var btnChecked = document.getElementById('btn-checked');
+        var checkboxAll = $('#checkbox-all');
+        var checkbox = $('input[name="billId[]"]');// khi muon lay ra nhieu
+        var actionsBtn = $('#do-actions-btn');
+        var containerForm = $('form[name="container-form"]');
+
+        $('#delete-bill-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            billId = button.data('id');
+        });
+        
+        // show confirm modal 
+        btnDelete.onclick = function (event) {
+            deleteForm.action = '/me/bills/' + billId + '/hard-delete?_method=DELETE';
+            deleteForm.submit();
+        };
+
+        // when click on checkboxAll -> check all checkbox child
+        checkboxAll.change(function(){
+            if($(this).prop('checked')) {
+                checkbox.prop('checked', true);
+            }
+            else {
+                checkbox.prop('checked',false);
+            }
+            enableExecutedBtn();
+        });
+        
+        // when click on any checkbox child -> uncheck checkboxAll
+        checkbox.change(function(){
+            var isCheckedAll = checkbox.length === $('input[name="billId[]"]:checked').length;
+            checkboxAll.prop('checked', isCheckedAll);
+            enableExecutedBtn();
+        });
+
+        // checked bill
+        btnChecked.onclick = function(e) {
+            checkedForm.action = '/me/bills/' + this.name + '/checked-bill/?_method=PUT';
+            checkedForm.submit();
+        };
+
+        // completed bill
+        linkCompleted.onclick = function(e) {
+            e.preventDefault();
+            softDeleteForm.action = '/me/bills/' + this.name + '/soft-delete?_method=DELETE';
+            softDeleteForm.submit();
+        }
+
+        // enable to executed button 
+        function enableExecutedBtn() {
+            var countChecked = $('input[name="billId[]"]:checked').length;
+            if(countChecked > 0) {
+                actionsBtn.attr('disabled',false);
+            }
+            if(countChecked == 0) {
+                actionsBtn.attr('disabled',true);
+            }
+        };
+        
+    });
+</script>
+

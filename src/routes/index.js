@@ -24,7 +24,7 @@ function route(app) {
     app.use('/auth', AuthRouter);
     app.use('/me',Authenticated, checkAdmin, MeRouter);
     app.use('/404page', ErrorRouter);
-    app.use('/account',Authenticated, AccountRouter);
+    app.use('/account', Authenticated, AccountRouter);
     app.use('/', HomeRouter);
 }
 module.exports = route;

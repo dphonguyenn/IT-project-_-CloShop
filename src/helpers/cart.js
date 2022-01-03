@@ -38,4 +38,10 @@ module.exports = function Cart(oldCart) {
         return arr;
     }
 
+    this.removeCart = () => {
+        this.items = {};
+        this.totalPrice = 0;
+        this.totalQty = 0;
+    }
+
 }

@@ -9,7 +9,8 @@ const User = new Schema({
     role: { type: String , default: 'customer' },
     phone: { type: String },
     fullname: { type: String },
-    boss: { type: Boolean, default: false },
+    bill: { type: Array },
+    boss:{ type: Boolean }
 }, {
     timestamps: true
 });

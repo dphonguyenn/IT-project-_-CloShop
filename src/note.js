@@ -211,10 +211,51 @@
 // src/app/controller/AuthController
 
 
-// todo: Use res.locals._variable to save user's data 
+// todo: Use res.locals._variable to save user's data after login
+// * B1: Tạo một middleware inforUser.js ở thư mục src/app/middlewares/inforUser.js
+// const users = require('../model/user');
+// const ObjectID = require('mongodb').ObjectId;
+// module.exports = function userInfor(req,res,next) {
+//     res.locals.user = {
+//         isAuthenticated: false,
+//     }
+//     if (req.isAuthenticated()) {
+//         const _id = ObjectID(req.session.passport.user);
+//         users.findOne({ _id: _id }, (err, user) => {
+//             if (err) {
+//                 throw err;
+//             }
+//             Object.assign(res.locals.user, {
+//                 isAuthenticated: true,
+//                 user_boss: user.boss,
+//                 user_fullname: user.fullname,
+//                 user_username: user.username,
+//                 user_password: user.password,
+//                 user_address: user.address,
+//                 user_phone: user.phone,
+//                 user_email: user.email,
+//             })
+//         })
+//     }
+//     next();
+// };
+// ? -> Giai thích: biến locals _user mặc định có một property mô tả chưa đăng nhập
+// ? Khi đăng nhập thành công passportJS sẽ giúp ta tạo ra 1 session sử dụng cho phiên đăng nhập
+// ? Ta dựa vào đây để xem thử ai là người đã đăng nhập và lưu thông tin của người dùng đó vào biến locals user để dùng cho việc render ra view các thông tin của người dùng
+// ? Để kiểm tra đã đăng nhập chưa với passport sử dụng: req.isAuthenticated()
+// ? Cách lấy id của người đăng nhập để đối chiếu truy xuất dữ liệu người dùng phía database:  const _id = ObjectID(req.session.passport.user);
+
 
 
 // todo: Panigation
+// * Tham khảo tại: _ https://www.youtube.com/watch?v=4FNhcSlCKoY&t=3s
 
 
-// todo: 
+// todo: Sử dụng node-fetch để call API từ một trang web khác
+// * Vì nodeJS không hỗ trợ fetch nên để sử dụng fetch ta cần phải cài gói package node-fetch
+// * Install: (version x2)
+// npm install node-fetch@2
+// * Khai báo toàn cục để sử dụng trong app
+// const fetch = require('node-fetch');
+// globalThis.fetch = fetch;
+// * Cách sử dụng: _ ĐỌC DOCS tại: https://github.com/node-fetch/node-fetch/tree/2.x#readme
